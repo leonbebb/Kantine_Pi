@@ -62,6 +62,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setMaximumSize(new java.awt.Dimension(32167, 32167));
         setMinimumSize(new java.awt.Dimension(1240, 1024));
         setPreferredSize(new java.awt.Dimension(1240, 1024));
         setLayout(new java.awt.GridBagLayout());
@@ -268,7 +269,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
 
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\leon\\Desktop\\preview_12325_3_50_2_663_2_2_1_2_2_82592_2.png")); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kantine_pi/aufladesystem/preview_12325_3_50_2_663_2_2_1_2_2_82592_2.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
