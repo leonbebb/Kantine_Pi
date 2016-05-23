@@ -1,0 +1,19 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} 
+${licensePrefix}Copyright 2016 Leon Bebbington Licensed under the${licensePrefix}	
+${licensePrefix}	Educational Community License, Version 2.0 (the "License"); you may${licensePrefix}	
+${licensePrefix}	not use this file except in compliance with the License. You may${licensePrefix}	
+${licensePrefix}	obtain a copy of the License at${licensePrefix}	
+${licensePrefix}	${licensePrefix}	
+${licensePrefix}	http://www.osedu.org/licenses/ECL-2.0${licensePrefix}	
+${licensePrefix}
+${licensePrefix}	Unless required by applicable law or agreed to in writing,${licensePrefix}	
+${licensePrefix}	software distributed under the License is distributed on an "AS IS"${licensePrefix}	
+${licensePrefix}	BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express${licensePrefix}	
+${licensePrefix}	or implied. See the License for the specific language governing${licensePrefix}	
+${licensePrefix}	permissions and limitations under the License.${licensePrefix}	
+<#if licenseLast??>
+${licenseLast}
+</#if>
