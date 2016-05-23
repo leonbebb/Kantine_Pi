@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class ProduktListe {
 
-    private final static String PRODUKT_LISTE_FILENAME = "Preisliste.csv";
+    private final static String PRODUKT_LISTE_FILENAME = "\\test\\kantine_pi\\test\\Preisliste.csv";
 
     private ArrayList<Produkt> produkt_liste;
 
@@ -69,7 +69,7 @@ public class ProduktListe {
      * @return ausgewähltes Produkt oder null wenn nicht gefunden.
      */
     public Produkt getProdukt(int produkt_nummer){
-        Produkt ausgewähltes = null;
+        Produkt ausgewähltes = produkt_liste.get(produkt_nummer);
         return ausgewähltes;
     }
 }
