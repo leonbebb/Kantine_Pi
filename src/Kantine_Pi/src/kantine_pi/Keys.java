@@ -19,47 +19,18 @@ package kantine_pi;
  *
  * @author Leon Bebbington
  */
-public class Produkt {
+public class Keys {
 
-    private int nummer;
-    private String katagorie;
-    private String name;
-    private double preis;
-    
-    public Produkt(int nummer, String katagorie, String name, double preis) {
-        this.nummer = nummer;
-        this.katagorie = katagorie;
-        this.name = name;
-        this.preis = preis;
+    public Keys() {
+//TODO implement constructor
     }
 
-    /**
-     * @return the nummer
-     */
-    public int getNummer() {
-        return nummer;
+    public byte[] getKey1() {
+        return null;
     }
 
-    /**
-     * @return the katagorie
-     */
-    public String getKatagorie() {
-        return katagorie;
+    public byte[] getKey2() {
+        return null;
     }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @return the preis
-     */
-    public double getPreis() {
-        return preis;
-    }
-
-    
 }

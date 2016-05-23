@@ -6,7 +6,7 @@ package kantine_pi.test;
  * and open the template in the editor.
  */
 
-import kantine_pi.TDes;
+import kantine_pi.DES3_Verschlüsselung;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,8 +19,8 @@ public class DesEncryptionTest {
   
      @Test
      public void test_encryption1() {
-         String encoded = TDes.encode("this is a test");
-         String decoded = TDes.decode(encoded);
+         String encoded = DES3_Verschlüsselung.encode("this is a test");
+         String decoded = DES3_Verschlüsselung.decode(encoded);
          assertEquals("this is a test",decoded);
      }
      
@@ -32,11 +32,11 @@ public class DesEncryptionTest {
          
          System.out.println("Chip Data==> " + chip_data);
 
-         String encoded = TDes.encode(chip_data);
+         String encoded = DES3_Verschlüsselung.encode(chip_data);
          
          System.out.println("Encoded==> " + encoded);
               
-         String decoded = TDes.decode(encoded);
+         String decoded = DES3_Verschlüsselung.decode(encoded);
          
          System.out.println("Decoded==> " + decoded);
            

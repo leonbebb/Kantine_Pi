@@ -49,17 +49,7 @@ public class ProductTest {
         assertEquals("0.75", spalten[3]);  
  
                    
-      String s =  "145";
-      String s2 = "234";
       
-      String s3 = "" + (Integer.parseInt(s) + Integer.parseInt(s2));
-      
-      assertEquals("379", s3);  
-              
-
-      
-      int i = Integer.parseInt(s);
-        
     }
     
       @Test

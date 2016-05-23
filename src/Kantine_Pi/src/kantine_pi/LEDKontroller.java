@@ -19,58 +19,52 @@ package kantine_pi;
  *
  * @author Leon Bebbington
  */
-public class Kunde {
+public class LEDKontroller {
+    
+    private boolean bereit;          // blau LED
+    private boolean gelesen_ok;     // grün LED
+    private boolean lese_error;     // rot LED
 
-    private String id;
-    private String name;
-    private String klasse;
-
-    public Kunde(String id, String name, String klasse) {
-        this.id = id;
-        this.name = name;
-        this.klasse = klasse;
+    /**
+     * @return the bereit
+     */
+    public boolean isBereit() {
+        return bereit;
     }
 
     /**
-     * @return the id
+     * @param bereit the bereit to set
      */
-    public String getId() {
-        return id;
+    public void setBereit(boolean bereit) {
+        this.bereit = bereit;
     }
 
     /**
-     * @param id the id to set
+     * @return the gelesen_ok
      */
-    public void setId(String id) {
-        this.id = id;
+    public boolean isGelesen_ok() {
+        return gelesen_ok;
     }
 
     /**
-     * @return the name
+     * @param gelesen_ok the gelesen_ok to set
      */
-    public String getName() {
-        return name;
+    public void setGelesen_ok(boolean gelesen_ok) {
+        this.gelesen_ok = gelesen_ok;
     }
 
     /**
-     * @param name the name to set
+     * @return the lese_error
      */
-    public void setName(String name) {
-        this.name = name;
+    public boolean isLese_error() {
+        return lese_error;
     }
 
     /**
-     * @return the klasse
+     * @param lese_error the lese_error to set
      */
-    public String getKlasse() {
-        return klasse;
+    public void setLese_error(boolean lese_error) {
+        this.lese_error = lese_error;
     }
-
-    /**
-     * @param klasse the klasse to set
-     */
-    public void setKlasse(String klasse) {
-        this.klasse = klasse;
-    }
-
+    
 }
