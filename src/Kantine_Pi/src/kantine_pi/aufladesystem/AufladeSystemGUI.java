@@ -198,6 +198,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Leon Bebbington");
         jLabel6.setToolTipText("");
+        jLabel6.setPreferredSize(new java.awt.Dimension(220, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
