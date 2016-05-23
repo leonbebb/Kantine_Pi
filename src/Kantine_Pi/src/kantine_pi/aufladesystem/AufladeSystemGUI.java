@@ -271,7 +271,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
 
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kantine_pi/aufladesystem/preview_12325_3_50_2_663_2_2_1_2_2_82592_2.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kantine_pi/aufladesystem/Logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -289,7 +289,47 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         add(jPanel6, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+  
+        /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels=javax.swing.UIManager.getInstalledLookAndFeels();
+            for (int idx=0; idx<installedLookAndFeels.length; idx++)
+                if ("Nimbus".equals(installedLookAndFeels[idx].getName())) {
+                    javax.swing.UIManager.setLookAndFeel(installedLookAndFeels[idx].getClassName());
+                    break;
+                }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AufladeSystemGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AufladeSystemGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AufladeSystemGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AufladeSystemGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystemGUI");
+                frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                frame.getContentPane().add(new AufladeSystemGUI());
+                frame.pack();
+                frame.setVisible(true);
+            }
+        });
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

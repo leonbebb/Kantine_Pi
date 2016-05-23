@@ -355,7 +355,7 @@
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/kantine_pi/aufladesystem/preview_12325_3_50_2_663_2_2_1_2_2_82592_2.png"/>
+              <Image iconType="3" name="/kantine_pi/aufladesystem/Logo.png"/>
             </Property>
           </Properties>
           <Constraints>
