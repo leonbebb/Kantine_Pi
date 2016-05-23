@@ -228,6 +228,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 74;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
