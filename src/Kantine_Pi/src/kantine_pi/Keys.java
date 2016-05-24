@@ -15,22 +15,76 @@
  */
 package kantine_pi;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Leon Bebbington
  */
 public class Keys {
 
+    private byte[] key1;
+    private byte[] key2;
+
     public Keys(String key_file) {
-        
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(key_file), StandardCharsets.UTF_16);
+
+            for (String line : lines) {
+                if (line.startsWith("Key1")) {
+                    key1 = parseKeyString(line);
+                }
+                if (line.startsWith("Key2")) {
+                    key2 = parseKeyString(line);
+                }
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Keys.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
+    public static byte[] parseKeyString(String ps) {
+        byte[] keydaten = null;
+
+        if (ps.startsWith("Key")) {
+            String daten = ps.substring(ps.indexOf("{") + 1, ps.indexOf("}"));
+            String[] bytesString = daten.split(",");
+
+            keydaten = new byte[bytesString.length];
+            int i = 0;
+            for (String bs : bytesString) {
+                bs = bs.replaceAll("0x", "").trim();
+
+                byte b = Byte.parseByte(bs, 16);
+                keydaten[i++] = b;
+            }
+
+        }
+
+        return keydaten;
+    }
+
+    /**
+     * @return the key1
+     */
     public byte[] getKey1() {
-        return null;
+        return key1;
     }
 
+    /**
+     * @return the key2
+     */
     public byte[] getKey2() {
-        return null;
+        return key2;
     }
 
 }

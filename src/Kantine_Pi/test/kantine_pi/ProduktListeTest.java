@@ -1,3 +1,5 @@
+package kantine_pi;
+
 /*
  *  
  * Copyright 2016 Leon Bebbington Licensed under the * 	
