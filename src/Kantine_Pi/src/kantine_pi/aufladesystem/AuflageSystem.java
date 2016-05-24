@@ -13,24 +13,29 @@
  * 	or implied. See the License for the specific language governing * 	
  * 	permissions and limitations under the License. * 	
  */
-package kantine_pi;
+package kantine_pi.aufladesystem;
 
 /**
  *
  * @author Leon Bebbington
  */
-public class Keys {
+public class AuflageSystem {
 
-    public Keys(String key_file) {
+     /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+        if (args.length != 1) {
+            System.out.println("Falsche anzahl Programme Argumente : (sollwert) AuflageSystem key_file ");
+        } else {
+            StartApplication(args[0]);
+        }
+    }
+    
+    
+    private static void StartApplication(String key_file){
         
     }
-
-    public byte[] getKey1() {
-        return null;
-    }
-
-    public byte[] getKey2() {
-        return null;
-    }
-
+    
 }

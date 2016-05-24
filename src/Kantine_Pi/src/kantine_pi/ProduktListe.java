@@ -17,6 +17,7 @@ package kantine_pi;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,23 +31,23 @@ import java.util.logging.Logger;
  */
 public class ProduktListe {
 
-    private final static String PRODUKT_LISTE_FILENAME = "\\test\\kantine_pi\\test\\Preisliste.csv";
-
     private ArrayList<Produkt> produkt_liste;
 
-    public ProduktListe() {
-        leseProdukteAusDatei();
+    public ProduktListe(String preislist_file) {
+        leseProdukteAusDatei(preislist_file);
     }
 
-    private void leseProdukteAusDatei() {
+    private void leseProdukteAusDatei(String preislist_file) {
         produkt_liste = new ArrayList<Produkt>();
-        
+
         try {
-            List<String> lines = Files.readAllLines(Paths.get(PRODUKT_LISTE_FILENAME), Charset.defaultCharset());
+            List<String> lines = Files.readAllLines(Paths.get(preislist_file), StandardCharsets.UTF_16);
 
             for (String line : lines) {
-
-                String[] newproduct = line.split(",");
+                if (line.startsWith("#")) {
+                    continue;
+                }
+                String[] newproduct = line.trim().split(",");
                 try {
                     Produkt p1 = new Produkt(Integer.parseInt(newproduct[0]), newproduct[1], newproduct[2], Double.parseDouble(newproduct[3]));
                     produkt_liste.add(p1);
@@ -54,22 +55,26 @@ public class ProduktListe {
                 } catch (Exception e) {
                     Logger.getLogger(ProduktListe.class.getName()).log(Level.SEVERE, null, e);
                 }
-        }
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(ProduktListe.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
-  
+
     /**
-     * 
+     *
      * @param produkt_nummer eindeutige Produktnummer
      * @return ausgewähltes Produkt oder null wenn nicht gefunden.
      */
-    public Produkt getProdukt(int produkt_nummer){
-        Produkt ausgewähltes = produkt_liste.get(produkt_nummer);
-        return ausgewähltes;
+    public Produkt getProdukt(int produkt_nummer) {
+
+        for (Produkt p : produkt_liste) {
+            if (p.getNummer() == produkt_nummer) {
+                return p;
+            }
+        }
+        return null;
     }
 }

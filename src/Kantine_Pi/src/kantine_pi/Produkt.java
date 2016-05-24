@@ -25,7 +25,7 @@ public class Produkt {
     private String katagorie;
     private String name;
     private double preis;
-    
+
     public Produkt(int nummer, String katagorie, String name, double preis) {
         this.nummer = nummer;
         this.katagorie = katagorie;
@@ -61,5 +61,11 @@ public class Produkt {
         return preis;
     }
 
-    
+    public boolean isEqual(Produkt andere) {
+        return this.nummer == andere.nummer
+                && this.katagorie.equalsIgnoreCase(andere.getKatagorie())
+                && this.name.equalsIgnoreCase(andere.getName())
+                && this.preis == andere.getPreis();
+    }
+
 }

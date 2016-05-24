@@ -1,4 +1,3 @@
-package kantine_pi.test;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
