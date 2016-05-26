@@ -16,7 +16,7 @@ import javax.crypto.spec.IvParameterSpec;
 import java.util.Base64;
 
 /**
- * DES3_Verschlüsselung sorgt dafür dass die Daten verschlüsselt und entschlüsselt werden also für Sicherheit
+ * DES3_Verschlüsselung sorgt dafür dass die Daten verschlüsselt und entschlüsselt werden also für Sicherheit sorgen
  * @author shivshankar pal
  * this code is working properly. doing proper encryption and description note:- it will work only with jdk8
  * 

@@ -23,8 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * TODO dont forget me
- *NFCKontroller überprüft ob die karte gelesen werden kann und wenn nicht ob vllt 2 karten auf dem lesegerät sind
+ *NFCKontroller überprüft ob die karte gelesen werden kann und wenn nicht ob vielleicht 2 karten auf dem lesegerät sind
  *NFCKontroller kann die NFCKarten lesen/schreiben/löschen
  * @author Leon Bebbington
  */

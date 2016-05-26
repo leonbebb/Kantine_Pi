@@ -16,8 +16,7 @@
 package kantine_pi;
 
 /**
- *Dem Produkt wird eine Produkt nummer, die Kategorie, der Name und der Preis zugeordnet sodass die Produktliste
- * die daten leicht in der Produktliste benutzen kann
+ *Dem Produkt wird eine Produkt nummer, die Kategorie, der Name und der Preis zugeordnet
  * @author Leon Bebbington
  */
 public class Produkt {
