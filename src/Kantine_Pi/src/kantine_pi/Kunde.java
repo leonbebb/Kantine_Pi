@@ -16,7 +16,7 @@
 package kantine_pi;
 
 /**
- *
+ *Bei dieser Class wird einer Karten ID der Name und die Klasse eines Schülers zugeschrieben 
  * @author Leon Bebbington
  */
 public class Kunde {

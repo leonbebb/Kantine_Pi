@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Keys nimmt einen Txtfile welcher hexadezimel codes für 2 Keys und konvertiert die txt daten inzu 2 byte arrays(key1,key2) 
  * @author Leon Bebbington
  */
 public class Keys {
