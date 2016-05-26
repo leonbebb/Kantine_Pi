@@ -16,7 +16,7 @@
 package kantine_pi;
 
 /**
- *
+ * TODO beschreibung
  * @author Leon Bebbington
  */
 public class AufladeModell {

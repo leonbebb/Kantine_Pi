@@ -16,7 +16,7 @@
 package kantine_pi;
 
 /**
- *
+ *TODO Beschreibung
  * @author Leon Bebbington
  */
 public class KasseModel {

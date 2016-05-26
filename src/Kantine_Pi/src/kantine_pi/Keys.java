@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Keys nehmen files und benutzen 2 keys um sie zu entschlüsseln (z.B. ID ,Name, Klasse von NFC Karte)
  * @author Leon Bebbington
  */
 public class Keys {

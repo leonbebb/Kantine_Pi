@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *ProduktListe liest einen .txt file welcher durch kommas getrennte Wörter beinhaltet und konvertiert ihn zu einem array von class Produkt
  * @author Leon Bebbington
  */
 public class ProduktListe {

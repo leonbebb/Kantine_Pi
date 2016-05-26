@@ -16,7 +16,7 @@
 package kantine_pi;
 
 /**
- *
+ *LEDKontroller steuert 3 LEDs und verwendet ein boolean um den zustand des Lesevorgangs auszugeben
  * @author Leon Bebbington
  */
 public class LEDKontroller {
