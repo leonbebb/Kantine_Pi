@@ -18,6 +18,7 @@ package kantine_pi;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +34,9 @@ public class NFCKontroller {
     private static final String NICHTLESBAR = "Karte nicht lesbar";
     private static final String ZUVIELEKARTEN = "Mehr als eine Karte gelesen";
 
-    private static final String CMD_SCANCARD = "NFC scan";//TODO richtige pi command finden
+    private static final String CMD_SCANCARD = "nfc-list";
+    private static final String CMD_READCARD = "nfc-list"; // TODO
+    private static final String CMD_WRITECARD = "nfc-list"; // TODO
 
     public String scancard() {
         try {
@@ -59,9 +62,9 @@ public class NFCKontroller {
         return false;
     }
 
-    private Vector<String> pisystemcall(String cmd) throws IOException, InterruptedException {
+    private ArrayList<String> pisystemcall(String cmd) throws IOException, InterruptedException {
 
-        Vector<String> antwort = new Vector<String>();
+        ArrayList<String> antwort = new ArrayList<String>();
         Runtime r = Runtime.getRuntime();
         Process p = r.exec(cmd);
         p.waitFor();

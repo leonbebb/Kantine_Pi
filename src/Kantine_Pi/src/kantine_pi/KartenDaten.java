@@ -13,29 +13,17 @@
  * 	or implied. See the License for the specific language governing * 	
  * 	permissions and limitations under the License. * 	
  */
-package kantine_pi.aufladesystem;
+package kantine_pi;
+
+import java.util.Date;
 
 /**
  *
  * @author Leon Bebbington
  */
-public class AuflageSystem {
-
-     /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        if (args.length != 1) {
-            System.out.println("Falsche anzahl Programme Argumente : (sollwert) AuflageSystem key_file ");
-        } else {
-            StartApplication(args[0]);
-        }
-    }
-    
-    
-    private static void StartApplication(String key_file){
-        
-    }
-    
+public class KartenDaten {
+    private Kunde kunden_daten;
+    private double guthaben;
+    private Date datum_initializiert;
+    private Date datum_letzt_geschrieben;
 }
