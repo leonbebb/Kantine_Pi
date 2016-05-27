@@ -31,8 +31,8 @@ import java.util.logging.Logger;
 public class LEDKontroller {
 
     final static String LED_BLAU_GPIO_PIN = "4";
-    final static String LED_GRUEN_GPIO_PIN = "4";
-    final static String LED_ROT_GPIO_PIN = "4";
+    final static String LED_GRUEN_GPIO_PIN = "17";
+    final static String LED_ROT_GPIO_PIN = "22";
 
     final static boolean AN = true;
     final static boolean AUS = false;
@@ -110,6 +110,8 @@ public class LEDKontroller {
         cmd_LED(LED_ROT_GPIO_PIN, this.lese_error);
     }
 
+    
+    
     private String cmd_initializierLED(String gpio_pin) {
         return "sudo gpio -g mode " + gpio_pin + " out";
     }
@@ -119,21 +121,15 @@ public class LEDKontroller {
         return an ? cmd + " 1" : cmd + " 0";
     }
 
+    
     private ArrayList<String> pisystemcall(String cmd) {
 
         ArrayList<String> antwort = new ArrayList<String>();
 
         try {
             Runtime r = Runtime.getRuntime();
-
             Process p = r.exec(cmd);
             p.waitFor();
-            BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = b.readLine()) != null) {
-                antwort.add(line);
-            }
-            b.close();
 
         } catch (IOException ex) {
             Logger.getLogger(LEDKontroller.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,24 +144,14 @@ public class LEDKontroller {
 
         LEDKontroller lc = new LEDKontroller();
 
-        lc.pisystemcall(lc.cmd_initializierLED(LED_BLAU_GPIO_PIN));
-        lc.pisystemcall(lc.cmd_initializierLED(LED_GRUEN_GPIO_PIN));
-        lc.pisystemcall(lc.cmd_initializierLED(LED_ROT_GPIO_PIN));
-
-        lc.pisystemcall(lc.cmd_initializierLED(LED_ROT_GPIO_PIN));
-
-        lc.pisystemcall("sudo gpio -g mode 4 out");
-        lc.pisystemcall("sudo gpio -g write 4 1");
-
+   
         boolean toggle = false;
         for (;;) {
-            toggle ^= toggle;
+            toggle =  !toggle;           
             lc.pisystemcall(lc.cmd_LED(LED_BLAU_GPIO_PIN, toggle));
             lc.pisystemcall(lc.cmd_LED(LED_GRUEN_GPIO_PIN, toggle));
             lc.pisystemcall(lc.cmd_LED(LED_ROT_GPIO_PIN, toggle));
-            Thread.sleep(500);
-
-            System.out.println("toggle LEDS");
+            Thread.sleep(5);
 
         }
     }
