@@ -15,16 +15,21 @@
  */
 package kantine_pi.aufladesystem;
 
+import java.time.Clock;
+
 /**
  *
  * @author Leon Bebbington
  */
 public class AufladeSystemGUI extends javax.swing.JPanel {
 
+    private final AufladeModell model;
+
     /**
      * Creates new form KasseGUI
      */
-    public AufladeSystemGUI() {
+    public AufladeSystemGUI(AufladeModell model) {
+        this.model = model;
         initComponents();
     }
 
@@ -108,6 +113,11 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton1.setText("5 €");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -122,6 +132,11 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton2.setText("10 €");
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -135,6 +150,11 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton3.setText("25 €");
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -148,6 +168,11 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton4.setText("50 €");
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -218,7 +243,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 67;
+        gridBagConstraints.ipadx = 150;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel4.add(jTextField1, gridBagConstraints);
@@ -228,7 +253,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 12;
+        gridBagConstraints.ipadx = 40;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel4.add(jTextField2, gridBagConstraints);
@@ -263,7 +288,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel5.add(jButton8, new java.awt.GridBagConstraints());
 
         jButton9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton9.setText("Aufladen stonieren");
+        jButton9.setText("Aufladen stornieren");
         jButton9.setToolTipText("");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,11 +342,37 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        if (model != null) {
+            model.aufladen_stornieren();
     }//GEN-LAST:event_jButton9ActionPerformed
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (model != null) {
+            model.betragaufladen(5);
+        }
 
-  
-        /**
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (model != null) {
+            model.betragaufladen(10);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (model != null) {
+            model.betragaufladen(25);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (model != null) {
+            model.betragaufladen(50);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -331,12 +382,13 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels=javax.swing.UIManager.getInstalledLookAndFeels();
-            for (int idx=0; idx<installedLookAndFeels.length; idx++)
+            javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels = javax.swing.UIManager.getInstalledLookAndFeels();
+            for (int idx = 0; idx < installedLookAndFeels.length; idx++) {
                 if ("Nimbus".equals(installedLookAndFeels[idx].getName())) {
                     javax.swing.UIManager.setLookAndFeel(installedLookAndFeels[idx].getClassName());
                     break;
                 }
+            }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(AufladeSystemGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -353,14 +405,15 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
             public void run() {
                 javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystemGUI");
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new AufladeSystemGUI());
+                AufladeModell model = new AufladeModell();
+                frame.getContentPane().add(new AufladeSystemGUI(model));
                 frame.pack();
                 frame.setVisible(true);
             }
         });
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

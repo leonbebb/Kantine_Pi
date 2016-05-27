@@ -17,16 +17,27 @@ package kantine_pi.aufladesystem;
 
 /**
  * TODO beschreibung
+ *
  * @author Leon Bebbington
  */
 public class AufladeModell {
-    private static final double  MAXGUTHABEN_EURO = 70.00;
-    private static final double  MAXAUFLADUNG_EURO = 50.00;
-    
-    
-    public void betragaufladen(int betrag_in_euro){
-        
+
+    private static final double MAXGUTHABEN_EURO = 70.00;
+    private static final double MAXAUFLADUNG_EURO = 50.00;
+    private double aufladebetrag = 0.00;
+
+    public void betragaufladen(int betrag_in_euro) {
+        System.out.println("betragaufladen : " + betrag_in_euro);
+        aufladebetrag = aufladebetrag + betrag_in_euro;
+        if (aufladebetrag >= MAXAUFLADUNG_EURO) {
+            aufladebetrag = MAXAUFLADUNG_EURO;
+
+        }
+        System.out.println("aufladebetrag : " + aufladebetrag);
+
     }
-    
-    
+
+    public void aufladen_stornieren() {
+        aufladebetrag = 0.0;
+    }
 }
