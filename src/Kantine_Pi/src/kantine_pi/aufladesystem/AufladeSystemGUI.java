@@ -67,6 +67,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(32167, 32167));
@@ -278,7 +279,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel5.add(jButton6, gridBagConstraints);
 
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton7.setText("Karte Löschen");
+        jButton7.setText("Karte löschen");
         jButton7.setToolTipText("");
         jPanel5.add(jButton7, new java.awt.GridBagConstraints());
 
@@ -335,6 +336,15 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel6, gridBagConstraints);
+
+        jButton10.setText("Karte lesen");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 44;
+        gridBagConstraints.ipady = 32;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 147);
+        add(jButton10, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -416,6 +426,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
