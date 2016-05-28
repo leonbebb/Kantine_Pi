@@ -410,6 +410,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton10">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Karte lesen"/>
       </Properties>
       <Constraints>
