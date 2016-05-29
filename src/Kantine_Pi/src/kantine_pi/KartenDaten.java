@@ -28,12 +28,17 @@ public class KartenDaten {
     private Date datum_initializiert;
     private Date datum_zuletzt_beschrieben;
 
-    public KartenDaten(Kunde kunde_daten, double guthaben, Date initializiert, Date zuletzt_beschrieben) {
-        this.kunden_daten = kunden_daten;
+    public KartenDaten(Kunde kunde, double guthaben, Date initializiert, Date zuletzt_beschrieben) {
+        this.kunden_daten = kunde;
         this.guthaben = guthaben;
         this.datum_initializiert = initializiert;
-        this.datum_zuletzt_beschrieben = datum_zuletzt_beschrieben;
+        this.datum_zuletzt_beschrieben = zuletzt_beschrieben;
 
+    }
+
+    KartenDaten(String decoded) {
+        System.out.println(decoded);
+  //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -90,5 +95,16 @@ public class KartenDaten {
      */
     public void setDatum_zuletzt_beschrieben(Date datum_zuletzt_beschrieben) {
         this.datum_zuletzt_beschrieben = datum_zuletzt_beschrieben;
+    }
+
+    String to_string() {
+        String s ="";
+        s = this.kunden_daten.getId() + "," + 
+                this.kunden_daten.getName() + "," + 
+                this.kunden_daten.getKlasse() + "," + 
+                this.guthaben + "," +
+                this.datum_initializiert.toString() + "," +
+                this.datum_zuletzt_beschrieben.toString() ;
+     return s;
     }
 }

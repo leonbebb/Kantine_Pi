@@ -16,17 +16,17 @@
 package kantine_pi;
 
 /**
- *Bei dieser Class wird einer Karten ID der Name und die Klasse eines Schülers zugeschrieben 
+ *Bei dieser Class wird einer Karten ID, der Name und die Klasse eines Schülers zugeschrieben 
  * @author Leon Bebbington
  */
 public class Kunde {
 
-    private String id;
+    private long kartenID;
     private String name;
     private String klasse;
 
-    public Kunde(String id, String name, String klasse) {
-        this.id = id;
+    public Kunde(long id, String name, String klasse) {
+        this.kartenID = id;
         this.name = name;
         this.klasse = klasse;
     }
@@ -34,15 +34,15 @@ public class Kunde {
     /**
      * @return the id
      */
-    public String getId() {
-        return id;
+    public long getId() {
+        return kartenID;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setId(long id) {
+        this.kartenID = id;
     }
 
     /**

@@ -1,0 +1,22 @@
+nfc-mfclassic r a empty.mfd
+
+
+Examples: 
+
+  Read card to file, using key A:
+
+    nfc-mfclassic r a mycard.mfd
+
+  Write file to blank card, using key A:
+
+    nfc-mfclassic w a mycard.mfd
+
+  Write new data and/or keys to previously written card, using key A:
+
+    nfc-mfclassic w a newdata.mfd mycard.mfd
+
+  Format/wipe card (note two passes required to ensure writes for all ACL cases):
+
+    nfc-mfclassic f A dummy.mfd keyfile.mfd f
+    nfc-mfclassic f B dummy.mfd keyfile.mfd f
+

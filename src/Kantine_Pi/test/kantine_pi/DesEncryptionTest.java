@@ -7,7 +7,6 @@ package kantine_pi;
  * and open the template in the editor.
  */
 import java.net.URL;
-import kantine_pi.DES3_Verschlüsselung;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -40,7 +39,7 @@ public class DesEncryptionTest {
     @Test
     public void test_encryption2() {
 
-        String chip_data = "ID=123456789,Name=Leon Bebbington,Class=25A,Account_Balance=24.56,Date=15.05.2016";
+        String chip_data = "ID=ABCDEF01,Name=Leon Bebbington,Class=25A,Account_Balance=24.56,Date=15.05.2016";
 
         System.out.println("Chip Data==> " + chip_data);
 
@@ -52,10 +51,12 @@ public class DesEncryptionTest {
 
         System.out.println("Decoded==> " + decoded);
 
-        assertEquals(81, chip_data.length());
+        assertEquals(80, chip_data.length());
         assertEquals(152, encoded.length());
 
         assertEquals(chip_data, decoded);
     }
 
+   
+    
 }

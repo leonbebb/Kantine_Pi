@@ -1,0 +1,8 @@
+nfc-list uses libnfc libnfc-1.7.1
+NFC device: NXP / PN533 opened
+1 ISO14443A passive target(s) found:
+ISO/IEC 14443A (106 kbps) target:
+    ATQA (SENS_RES): 00  04  
+       UID (NFCID1): fc  bf  b4  30  
+      SAK (SEL_RES): 08  
+
