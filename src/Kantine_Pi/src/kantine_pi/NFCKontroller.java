@@ -19,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -173,6 +175,7 @@ public class NFCKontroller {
         writeCard();
         readCard();
         clearCard();
+        writeEncryptedCard();
     }
 
     public static void clearCard() {
@@ -210,6 +213,41 @@ public class NFCKontroller {
         ok = nfc.writedata("write_card_new.mfd", "write_card_old.mfd");
     }
 
+     public static void writeEncryptedCard() {
+
+        Keys keys = new Keys("keys.txt");     
+        DES3_Verschlüsselung.keys_laden(keys.getKey1(), keys.getKey2());
+
+        NFCKontroller nfc = new NFCKontroller();
+        boolean ok = nfc.scancard();
+        ok = nfc.readdata("encrypt_card_old.mfd");
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("encrypt_card_old.mfd"));
+
+        
+        long id = nfc.getKarten_id();
+        Kunde k = new Kunde(id, "Leon Bebbington", "25A");
+        LocalDateTime ts = LocalDateTime.now();
+        KartenDaten kd = new KartenDaten(k, 12.34, ts, ts);
+
+        String encoded = DES3_Verschlüsselung.encode(kd.to_string());
+        byte[] encoded_bytes = encoded.getBytes();
+        byte[] encoded_byte_und_länge = new byte[encoded_bytes.length + 4];
+        ByteBuffer bb = ByteBuffer.wrap(encoded_byte_und_länge);
+        bb.putInt(encoded_bytes.length);
+        bb.put(encoded_bytes);
+
+        kartendaten.setUsableSpace(encoded_byte_und_länge);
+        
+        kartendaten.writeMiFare_1KDaten(new File("encrypt_card_new.mfd"));
+        ok = nfc.writedata("encrypt_card_new.mfd", "encrypt_card_old.mfd");
+        
+        ok = nfc.scancard();
+        ok = nfc.readdata("read_encrpt_card.mfd");
+    
+        
+    }
+    
+    
     public static void readCard() {
         NFCKontroller nfc = new NFCKontroller();
         boolean ok = nfc.scancard();
