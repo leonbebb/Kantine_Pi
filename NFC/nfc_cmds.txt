@@ -20,3 +20,8 @@ Examples:
     nfc-mfclassic f A dummy.mfd keyfile.mfd f
     nfc-mfclassic f B dummy.mfd keyfile.mfd f
 
+
+
+Linux od to examine binary data on card file:
+
+$ od -t x1 read_card.mfd 
