@@ -16,50 +16,127 @@
 package kantine_pi;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *NFCKontroller überprüft ob die karte gelesen werden kann und wenn nicht ob vielleicht 2 karten auf dem lesegerät sind
- *NFCKontroller kann die NFCKarten lesen/schreiben/löschen
- * @author Leon Bebbington
+ * NFCKontroller überprüft ob die karte gelesen werden kann und wenn nicht ob
+ * vielleicht 2 karten auf dem lesegerät sind NFCKontroller kann die NFCKarten
+ * lesen/schreiben/löschen
+ *
+ * @author John Bebbington
  */
 public class NFCKontroller {
 
-    private static final String GELESEN = "Karte gelesen okay";
-    private static final String NICHTLESBAR = "Karte nicht lesbar";
-    private static final String ZUVIELEKARTEN = "Mehr als eine Karte gelesen";
-
     private static final String CMD_SCANCARD = "nfc-list";
-    private static final String CMD_READCARD = "nfc-list"; // TODO
-    private static final String CMD_WRITECARD = "nfc-list"; // TODO
+    private static final String CMD_READCARD = "nfc-mfclassic r a ";
+    private static final String CMD_WRITECARD = "nfc-mfclassic w a ";
 
-    public String scancard() {
+    private int anzahl_karten;
+    private long karten_id;
+
+    public boolean scancard() {
+        boolean scan_ok = false;
+        anzahl_karten = 0;
+        karten_id = 0;
+
         try {
-            pisystemcall(CMD_SCANCARD);
+            ArrayList<String> antwort = pisystemcall(CMD_SCANCARD);
+
+            for (String s : antwort) {
+
+                if (s.contains("ISO14443A")) {
+                    String anzahl = s.substring(0, s.indexOf("ISO14443A"));
+                    anzahl = anzahl.trim();
+                    anzahl_karten = Integer.parseInt(anzahl);
+                }
+                if (s.contains("UID (NFCID1):")) {
+                    String id = s.substring(s.indexOf("UID (NFCID1):") + 13, s.length());
+                    id = id.trim();
+                    id = id.replaceAll(" ", "");
+                    karten_id = Long.parseLong(id, 16);
+                }
+            }
+
+            scan_ok = (anzahl_karten == 1 && karten_id != 0);
+
         } catch (IOException ex) {
             Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return scan_ok;
 
     }
 
-    public boolean writedata(String d) {
-        return false;
+    public boolean writedata(String new_daten_file, String old_daten_file) {
+        boolean write_ok = false;
+        boolean write_done = false;
+        long id_read = 0;
+
+        try {
+            ArrayList<String> antwort = pisystemcall(CMD_WRITECARD + new_daten_file + " " + old_daten_file);
+            for (String s : antwort) {
+                if (s.contains("Done, 63 of 64 blocks written.")) {
+                    write_done = true;
+                }
+
+                if (s.contains("UID (NFCID1):")) {
+                    String id = s.substring(s.indexOf("UID (NFCID1):") + 13, s.length());
+                    id = id.trim();
+                    id = id.replaceAll(" ", "");
+                    id_read = Long.parseLong(id, 16);
+                }
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        write_ok = write_done && (id_read == this.karten_id);
+
+        return write_ok;
     }
 
-    public String readdata() {
-        return null;
-    }
+    public boolean readdata(String daten_file) {
+        boolean read_ok = false;
+        boolean read_done = false;
+        boolean file_written = false;
+        long id_read = 0;
+        try {
+            ArrayList<String> antwort = pisystemcall(CMD_READCARD + daten_file);
+            for (String s : antwort) {
 
-    public boolean deletedata() {
-        return false;
+                if (s.contains("Done, 64 of 64 blocks read.")) {
+                    read_done = true;
+                }
+                if (s.contains("Writing data to file:") && s.contains("Done.")) {
+                    file_written = true;
+                }
+                if (s.contains("UID (NFCID1):")) {
+                    String id = s.substring(s.indexOf("UID (NFCID1):") + 13, s.length());
+                    id = id.trim();
+                    id = id.replaceAll(" ", "");
+                    id_read = Long.parseLong(id, 16);
+                }
+            }
+
+            read_ok = read_done && file_written && (id_read == this.karten_id);
+
+        } catch (IOException ex) {
+            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return read_ok;
     }
 
     private ArrayList<String> pisystemcall(String cmd) throws IOException, InterruptedException {
@@ -77,4 +154,66 @@ public class NFCKontroller {
         b.close();
         return antwort;
     }
+
+    /**
+     * @return the anzahl_karten
+     */
+    public int getAnzahl_karten() {
+        return anzahl_karten;
+    }
+
+    /**
+     * @return the karten_id
+     */
+    public long getKarten_id() {
+        return karten_id;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        writeCard();
+        readCard();
+        clearCard();
+    }
+
+    public static void clearCard() {
+
+        NFCKontroller nfc = new NFCKontroller();
+        boolean ok = nfc.scancard();
+        ok = nfc.readdata("clear_card_old.mfd");
+
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("clear_card_old.mfd"));
+        byte[] gus = kartendaten.getUsableSpace();
+        byte zero = 0;
+        Arrays.fill(gus, zero);
+        kartendaten.setUsableSpace(gus);
+        kartendaten.writeMiFare_1KDaten(new File("clear_card_new.mfd"));
+
+        ok = nfc.writedata("clear_card_new.mfd", "clear_card_old.mfd");
+
+    }
+
+    public static void writeCard() {
+
+        NFCKontroller nfc = new NFCKontroller();
+        boolean ok = nfc.scancard();
+        ok = nfc.readdata("write_card_old.mfd");
+
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("write_card_old.mfd"));
+
+        byte[] gus = kartendaten.getUsableSpace();
+        for (int i = 0; i < gus.length; i++) {
+            gus[i] = (byte) (i % 100);
+        }
+
+        kartendaten.setUsableSpace(gus);
+        kartendaten.writeMiFare_1KDaten(new File("write_card_new.mfd"));
+        ok = nfc.writedata("write_card_new.mfd", "write_card_old.mfd");
+    }
+
+    public static void readCard() {
+        NFCKontroller nfc = new NFCKontroller();
+        boolean ok = nfc.scancard();
+        ok = nfc.readdata("read_card.mfd");
+    }
+
 }

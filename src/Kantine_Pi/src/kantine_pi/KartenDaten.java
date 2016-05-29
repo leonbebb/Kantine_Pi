@@ -15,7 +15,7 @@
  */
 package kantine_pi;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -25,10 +25,10 @@ public class KartenDaten {
 
     private Kunde kunden_daten;
     private double guthaben;
-    private Date datum_initializiert;
-    private Date datum_zuletzt_beschrieben;
+    private LocalDateTime datum_initializiert;
+    private LocalDateTime datum_zuletzt_beschrieben;
 
-    public KartenDaten(Kunde kunde, double guthaben, Date initializiert, Date zuletzt_beschrieben) {
+    public KartenDaten(Kunde kunde, double guthaben, LocalDateTime initializiert, LocalDateTime zuletzt_beschrieben) {
         this.kunden_daten = kunde;
         this.guthaben = guthaben;
         this.datum_initializiert = initializiert;
@@ -37,8 +37,12 @@ public class KartenDaten {
     }
 
     KartenDaten(String decoded) {
-        System.out.println(decoded);
-  //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[] werte = decoded.split(",");
+        long id = Long.parseLong(werte[0]);
+        this.kunden_daten = new Kunde(id, werte[1], werte[2]);
+        this.guthaben = Double.parseDouble(werte[3]);
+        this.datum_initializiert = LocalDateTime.parse(werte[4]);
+        this.datum_zuletzt_beschrieben = LocalDateTime.parse(werte[5]);
     }
 
     /**
@@ -72,28 +76,28 @@ public class KartenDaten {
     /**
      * @return the datum_initializiert
      */
-    public Date getDatum_initializiert() {
+    public LocalDateTime getDatum_initializiert() {
         return datum_initializiert;
     }
 
     /**
      * @param datum_initializiert the datum_initializiert to set
      */
-    public void setDatum_initializiert(Date datum_initializiert) {
+    public void setDatum_initializiert(LocalDateTime datum_initializiert) {
         this.datum_initializiert = datum_initializiert;
     }
 
     /**
      * @return the datum_zuletzt_beschrieben
      */
-    public Date getDatum_zuletzt_beschrieben() {
+    public LocalDateTime getDatum_zuletzt_beschrieben() {
         return datum_zuletzt_beschrieben;
     }
 
     /**
      * @param datum_zuletzt_beschrieben the datum_zuletzt_beschrieben to set
      */
-    public void setDatum_zuletzt_beschrieben(Date datum_zuletzt_beschrieben) {
+    public void setDatum_zuletzt_beschrieben(LocalDateTime datum_zuletzt_beschrieben) {
         this.datum_zuletzt_beschrieben = datum_zuletzt_beschrieben;
     }
 

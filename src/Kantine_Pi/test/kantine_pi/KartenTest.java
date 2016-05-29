@@ -19,7 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
@@ -60,7 +61,8 @@ public class KartenTest {
 
         long id = kartendaten.getKarteID();
         Kunde k = new Kunde(id, "Leon Bebbington", "25A");
-        KartenDaten kd = new KartenDaten(k, 25.54, new Date(), new Date());
+        LocalDateTime ts = LocalDateTime.now();
+        KartenDaten kd = new KartenDaten(k, 25.54, ts, ts);
 
         String encoded = DES3_Verschlüsselung.encode(kd.to_string());
         byte[] encoded_bytes = encoded.getBytes();
@@ -89,6 +91,14 @@ public class KartenTest {
 
             KartenDaten nkd = new KartenDaten(decoded);
 
+            Assert.assertEquals(-54545360, nkd.getKunden_daten().getId());
+            Assert.assertEquals("Leon Bebbington", nkd.getKunden_daten().getName());
+            Assert.assertEquals("25A", nkd.getKunden_daten().getKlasse());
+            Assert.assertEquals(25.54, nkd.getGuthaben(), 0.0);
+
+            Assert.assertEquals(ts, nkd.getDatum_initializiert());
+            Assert.assertEquals(ts, nkd.getDatum_zuletzt_beschrieben());
+
         } catch (IOException ex) {
             Logger.getLogger(KartenTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -113,6 +123,16 @@ public class KartenTest {
         String decoded = DES3_Verschlüsselung.decode(encrypted_string);
 
         KartenDaten nkd = new KartenDaten(decoded);
+
+        Assert.assertEquals(-54545360, nkd.getKunden_daten().getId());
+        Assert.assertEquals("Leon Bebbington", nkd.getKunden_daten().getName());
+        Assert.assertEquals("25A", nkd.getKunden_daten().getKlasse());
+        Assert.assertEquals(25.54, nkd.getGuthaben(), 0.0);
+
+        LocalDateTime ts = LocalDateTime.of(2016, Month.MAY, 29, 15, 16, 50, 84000000); // 2016-05-29T15:16:50.084
+
+        Assert.assertEquals(ts, nkd.getDatum_initializiert());
+        Assert.assertEquals(ts, nkd.getDatum_zuletzt_beschrieben());
 
     }
 
