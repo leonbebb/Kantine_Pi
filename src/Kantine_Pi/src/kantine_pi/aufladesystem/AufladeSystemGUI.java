@@ -45,8 +45,8 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel_Guthaben = new javax.swing.JLabel();
+        jPanel_AufladeBetrag = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -80,9 +80,9 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel1.setName("Guthaben"); // NOI18N
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Courier New", 0, 24)); // NOI18N
-        jLabel1.setText("00,00 €");
-        jPanel1.add(jLabel1, new java.awt.GridBagConstraints());
+        jLabel_Guthaben.setFont(new java.awt.Font("Courier New", 0, 36)); // NOI18N
+        jLabel_Guthaben.setText("00,00 €");
+        jPanel1.add(jLabel_Guthaben, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -92,13 +92,15 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel1, gridBagConstraints);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Auflade Betrag", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        jPanel2.setName("Guthaben"); // NOI18N
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanel_AufladeBetrag.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Auflade Betrag", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel_AufladeBetrag.setName("Guthaben"); // NOI18N
+        jPanel_AufladeBetrag.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Courier New", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Courier New", 0, 36)); // NOI18N
         jLabel2.setText("00,00 €");
-        jPanel2.add(jLabel2, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel_AufladeBetrag.add(jLabel2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -106,7 +108,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        add(jPanel2, gridBagConstraints);
+        add(jPanel_AufladeBetrag, gridBagConstraints);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aufladen mit ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -510,19 +512,19 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
     private javax.swing.JButton jButton_KarteLesen;
     private javax.swing.JButton jButton_Löschen;
     private javax.swing.JButton jButton_Stornieren;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_Guthaben;
     private javax.swing.JLabel jLabel_KartenID;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel_AufladeBetrag;
     private javax.swing.JTextField jText_Klasse;
     private javax.swing.JTextField jText_Name;
     // End of variables declaration//GEN-END:variables
