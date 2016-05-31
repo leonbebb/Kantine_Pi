@@ -15,6 +15,9 @@
  */
 package kantine_pi.aufladesystem;
 
+import kantine_pi.LEDKontroller;
+import kantine_pi.NFCKontroller;
+
 /**
  * TODO beschreibung
  *
@@ -25,19 +28,56 @@ public class AufladeModell {
     private static final double MAXGUTHABEN_EURO = 70.00;
     private static final double MAXAUFLADUNG_EURO = 50.00;
     private double aufladebetrag = 0.00;
+    private AufladeSystemGUI gui;
+    private ButtonZustand bz;
+    
+    private NFCKontroller nfc;
+    private LEDKontroller leds;
 
-    public void betragaufladen(int betrag_in_euro) {
+    
+    
+    AufladeModell() {
+
+        nfc = new NFCKontroller();
+        leds  = new LEDKontroller();
+        
+    }
+
+    void setGUI(AufladeSystemGUI gui) {
+        this.gui = gui;
+
+        this.gui.setKartenID("Unbekannt");
+        this.gui.setKarteName("Unbekannt");
+        this.gui.setKlasse("Unbekannt");
+        bz = new ButtonZustand();
+        this.gui.setButtonZustand(bz);
+
+    }
+
+    void betragaufladen(int betrag_in_euro) {
         System.out.println("betragaufladen : " + betrag_in_euro);
         aufladebetrag = aufladebetrag + betrag_in_euro;
         if (aufladebetrag >= MAXAUFLADUNG_EURO) {
             aufladebetrag = MAXAUFLADUNG_EURO;
-
         }
         System.out.println("aufladebetrag : " + aufladebetrag);
 
+        gui.setKarteName("" + aufladebetrag);
     }
 
-    public void aufladen_stornieren() {
+    void aufladen_stornieren() {
         aufladebetrag = 0.0;
+    }
+
+    void karteLesen() {
+        leds.setGelesen_ok(true);
+        System.out.println("karte lesen");
+        
+        bz.AufladeGruppeEnabled=true;
+        bz.SonderfunktionGruppeEnabled=true;
+        
+                this.gui.setButtonZustand(bz);
+
+       // nfc.readEncryptedCard();
     }
 }

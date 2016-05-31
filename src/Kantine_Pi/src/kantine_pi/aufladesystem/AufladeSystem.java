@@ -35,6 +35,26 @@ public class AufladeSystem {
     
     
     private static void StartApplication(String key_file){
+           /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            private AufladeSystemGUI gui;
+            public void run() {
+                
+                javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystemGUI");
+                frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                
+        
+                AufladeModell model = new AufladeModell();
+                gui = new AufladeSystemGUI(model);
+                model.setGUI(gui);
+                
+                
+                frame.getContentPane().add(gui);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        });
+        
         
     }
     

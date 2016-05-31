@@ -172,18 +172,20 @@ public class NFCKontroller {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        writeCard();
-        readCard();
-        clearCard();
-        writeEncryptedCard();
+                NFCKontroller nfc = new NFCKontroller();
+
+        
+        nfc.writeCard();
+        nfc.readCard();
+        nfc.clearCard();
+        nfc.writeEncryptedCard();
     }
 
-    public static void clearCard() {
+    public void clearCard() {
 
-        NFCKontroller nfc = new NFCKontroller();
-        boolean ok = nfc.scancard();
-        ok = nfc.readdata("clear_card_old.mfd");
-
+        boolean ok = scancard();
+        ok = readdata("clear_card_old.mfd");
+        
         MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("clear_card_old.mfd"));
         byte[] gus = kartendaten.getUsableSpace();
         byte zero = 0;
@@ -191,15 +193,14 @@ public class NFCKontroller {
         kartendaten.setUsableSpace(gus);
         kartendaten.writeMiFare_1KDaten(new File("clear_card_new.mfd"));
 
-        ok = nfc.writedata("clear_card_new.mfd", "clear_card_old.mfd");
+        ok = writedata("clear_card_new.mfd", "clear_card_old.mfd");
 
     }
 
-    public static void writeCard() {
+    public  void writeCard() {
 
-        NFCKontroller nfc = new NFCKontroller();
-        boolean ok = nfc.scancard();
-        ok = nfc.readdata("write_card_old.mfd");
+        boolean ok = scancard();
+        ok = readdata("write_card_old.mfd");
 
         MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("write_card_old.mfd"));
 
@@ -210,21 +211,20 @@ public class NFCKontroller {
 
         kartendaten.setUsableSpace(gus);
         kartendaten.writeMiFare_1KDaten(new File("write_card_new.mfd"));
-        ok = nfc.writedata("write_card_new.mfd", "write_card_old.mfd");
+        ok = writedata("write_card_new.mfd", "write_card_old.mfd");
     }
 
-     public static void writeEncryptedCard() {
+     public  void writeEncryptedCard() {
 
         Keys keys = new Keys("keys.txt");     
         DES3_Verschlüsselung.keys_laden(keys.getKey1(), keys.getKey2());
 
-        NFCKontroller nfc = new NFCKontroller();
-        boolean ok = nfc.scancard();
-        ok = nfc.readdata("encrypt_card_old.mfd");
+        boolean ok = scancard();
+        ok = readdata("encrypt_card_old.mfd");
         MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("encrypt_card_old.mfd"));
 
         
-        long id = nfc.getKarten_id();
+        long id = getKarten_id();
         Kunde k = new Kunde(id, "Leon Bebbington", "25A");
         LocalDateTime ts = LocalDateTime.now();
         KartenDaten kd = new KartenDaten(k, 12.34, ts, ts);
@@ -239,19 +239,53 @@ public class NFCKontroller {
         kartendaten.setUsableSpace(encoded_byte_und_länge);
         
         kartendaten.writeMiFare_1KDaten(new File("encrypt_card_new.mfd"));
-        ok = nfc.writedata("encrypt_card_new.mfd", "encrypt_card_old.mfd");
+        ok = writedata("encrypt_card_new.mfd", "encrypt_card_old.mfd");
         
-        ok = nfc.scancard();
-        ok = nfc.readdata("read_encrpt_card.mfd");
+        ok = scancard();
+        ok = readdata("read_encrpt_card.mfd");
     
         
     }
     
     
-    public static void readCard() {
-        NFCKontroller nfc = new NFCKontroller();
-        boolean ok = nfc.scancard();
-        ok = nfc.readdata("read_card.mfd");
+     public  void readEncryptedCard() {
+
+        Keys keys = new Keys("keys.txt");     
+        DES3_Verschlüsselung.keys_laden(keys.getKey1(), keys.getKey2());
+
+        boolean ok = scancard();
+        ok = readdata("encrypt_card_old.mfd");
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("encrypt_card_old.mfd"));
+        
+        
+        long id = getKarten_id();
+        Kunde k = new Kunde(id, "Leon Bebbington", "25A");
+        LocalDateTime ts = LocalDateTime.now();
+        KartenDaten kd = new KartenDaten(k, 12.34, ts, ts);
+
+        
+        String encoded = DES3_Verschlüsselung.encode(kd.to_string());
+        byte[] encoded_bytes = encoded.getBytes();
+        byte[] encoded_byte_und_länge = new byte[encoded_bytes.length + 4];
+        ByteBuffer bb = ByteBuffer.wrap(encoded_byte_und_länge);
+        bb.putInt(encoded_bytes.length);
+        bb.put(encoded_bytes);
+
+        kartendaten.setUsableSpace(encoded_byte_und_länge);
+        
+        kartendaten.writeMiFare_1KDaten(new File("encrypt_card_new.mfd"));
+        ok = writedata("encrypt_card_new.mfd", "encrypt_card_old.mfd");
+        
+        ok = scancard();
+        ok = readdata("read_encrpt_card.mfd");
+    
+        
+    }
+    
+     
+    public void readCard() {
+        boolean ok = scancard();
+        ok = readdata("read_card.mfd");
     }
 
 }

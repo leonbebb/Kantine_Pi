@@ -75,7 +75,7 @@ public class LEDKontroller {
      */
     public void setBereit(boolean bereit) {
         this.bereit = bereit;
-        cmd_LED(LED_BLAU_GPIO_PIN, this.bereit);
+        pisystemcall(cmd_LED(LED_BLAU_GPIO_PIN, this.bereit));
     }
 
     /**
@@ -90,7 +90,7 @@ public class LEDKontroller {
      */
     public void setGelesen_ok(boolean gelesen_ok) {
         this.gelesen_ok = gelesen_ok;
-        cmd_LED(LED_GRUEN_GPIO_PIN, this.gelesen_ok);
+        pisystemcall(cmd_LED(LED_GRUEN_GPIO_PIN, this.gelesen_ok));
     }
 
     /**
@@ -105,7 +105,7 @@ public class LEDKontroller {
      */
     public void setLese_error(boolean lese_error) {
         this.lese_error = lese_error;
-        cmd_LED(LED_ROT_GPIO_PIN, this.lese_error);
+        pisystemcall(cmd_LED(LED_ROT_GPIO_PIN, this.lese_error));
     }
 
     

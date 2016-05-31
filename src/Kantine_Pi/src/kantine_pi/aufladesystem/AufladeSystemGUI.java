@@ -16,6 +16,7 @@
 package kantine_pi.aufladesystem;
 
 import java.time.Clock;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -54,20 +55,20 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel_KartenID = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jText_Name = new javax.swing.JTextField();
+        jText_Klasse = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButton_Auszahlen = new javax.swing.JButton();
+        jButton_Löschen = new javax.swing.JButton();
+        jButton_Bearbeiten = new javax.swing.JButton();
+        jButton_Stornieren = new javax.swing.JButton();
+        jButton_Aufladen = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        jButton_KarteLesen = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(32167, 32167));
@@ -205,14 +206,14 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel4.add(jLabel3, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("567");
+        jLabel_KartenID.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel_KartenID.setText("567");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel4.add(jLabel4, gridBagConstraints);
+        jPanel4.add(jLabel_KartenID, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Name:");
@@ -233,11 +234,12 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel4.add(jLabel7, gridBagConstraints);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.setText("Leon Bebbington");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jText_Name.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jText_Name.setText("Leon Bebbington");
+        jText_Name.setEnabled(false);
+        jText_Name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jText_NameActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -247,17 +249,18 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.ipadx = 150;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel4.add(jTextField1, gridBagConstraints);
+        jPanel4.add(jText_Name, gridBagConstraints);
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField2.setText("12/3");
+        jText_Klasse.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jText_Klasse.setText("12/3");
+        jText_Klasse.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.ipadx = 40;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel4.add(jTextField2, gridBagConstraints);
+        jPanel4.add(jText_Klasse, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -272,31 +275,36 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sonderfunktionen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton6.setText("Auzahlen");
+        jButton_Auszahlen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_Auszahlen.setText("Auzahlen");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 9);
-        jPanel5.add(jButton6, gridBagConstraints);
+        jPanel5.add(jButton_Auszahlen, gridBagConstraints);
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton7.setText("Karte löschen");
-        jButton7.setToolTipText("");
-        jPanel5.add(jButton7, new java.awt.GridBagConstraints());
+        jButton_Löschen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_Löschen.setText("Karte löschen");
+        jButton_Löschen.setToolTipText("");
+        jPanel5.add(jButton_Löschen, new java.awt.GridBagConstraints());
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton8.setText("Bearbeiten");
-        jButton8.setToolTipText("");
-        jPanel5.add(jButton8, new java.awt.GridBagConstraints());
-
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton9.setText("Aufladen stornieren");
-        jButton9.setToolTipText("");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Bearbeiten.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_Bearbeiten.setText("Bearbeiten");
+        jButton_Bearbeiten.setToolTipText("");
+        jButton_Bearbeiten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButton_BearbeitenActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton9, new java.awt.GridBagConstraints());
+        jPanel5.add(jButton_Bearbeiten, new java.awt.GridBagConstraints());
+
+        jButton_Stornieren.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_Stornieren.setText("Aufladen stornieren");
+        jButton_Stornieren.setToolTipText("");
+        jButton_Stornieren.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_StornierenActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton_Stornieren, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -308,15 +316,15 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel5, gridBagConstraints);
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton5.setText("Aufladen");
+        jButton_Aufladen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_Aufladen.setText("Aufladen");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        add(jButton5, gridBagConstraints);
+        add(jButton_Aufladen, gridBagConstraints);
 
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
@@ -337,25 +345,30 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel6, gridBagConstraints);
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton10.setText("Karte lesen");
+        jButton_KarteLesen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_KarteLesen.setText("Karte lesen");
+        jButton_KarteLesen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_KarteLesenActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 44;
         gridBagConstraints.ipady = 32;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 147);
-        add(jButton10, gridBagConstraints);
+        add(jButton_KarteLesen, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jText_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jText_NameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jText_NameActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButton_StornierenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_StornierenActionPerformed
         if (model != null) {
             model.aufladen_stornieren();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jButton_StornierenActionPerformed
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (model != null) {
@@ -382,6 +395,63 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
             model.betragaufladen(50);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton_BearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BearbeitenActionPerformed
+
+        jText_Name.setEnabled(true);
+        jText_Klasse.setEnabled(true);
+    }//GEN-LAST:event_jButton_BearbeitenActionPerformed
+
+    private void jButton_KarteLesenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KarteLesenActionPerformed
+        if (model != null){
+            model.karteLesen();
+        }
+    }//GEN-LAST:event_jButton_KarteLesenActionPerformed
+
+    
+    public void setButtonZustand(final ButtonZustand bz){
+            SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                
+                jButton_KarteLesen.setEnabled(bz.KarteLesenEnabled);
+                
+                jButton_Auszahlen.setEnabled(bz.SonderfunktionGruppeEnabled);
+                jButton_Löschen.setEnabled(bz.SonderfunktionGruppeEnabled);
+                jButton_Bearbeiten.setEnabled(bz.SonderfunktionGruppeEnabled);
+                jButton_Stornieren.setEnabled(bz.SonderfunktionGruppeEnabled);
+
+                jButton_Aufladen.setEnabled(bz.AufladeGruppeEnabled);
+                jButton1.setEnabled(bz.AufladeGruppeEnabled);
+                jButton2.setEnabled(bz.AufladeGruppeEnabled);
+                jButton3.setEnabled(bz.AufladeGruppeEnabled);
+                jButton4.setEnabled(bz.AufladeGruppeEnabled);
+            }
+        });
+    }
+    
+    public void setKarteName(final String name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jText_Name.setText(name);
+            }
+        });
+    }
+
+    public void setKlasse(final String klasse) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jText_Klasse.setText(klasse);
+            }
+        });
+    }
+
+    public void setKartenID(final String id) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jLabel_KartenID.setText(id);
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments
@@ -413,11 +483,15 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            private AufladeSystemGUI gui;
+
             public void run() {
                 javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystemGUI");
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                 AufladeModell model = new AufladeModell();
-                frame.getContentPane().add(new AufladeSystemGUI(model));
+                gui = new AufladeSystemGUI(model);
+                model.setGUI(gui);
+                frame.getContentPane().add(gui);
                 frame.pack();
                 frame.setVisible(true);
             }
@@ -427,29 +501,29 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton_Aufladen;
+    private javax.swing.JButton jButton_Auszahlen;
+    private javax.swing.JButton jButton_Bearbeiten;
+    private javax.swing.JButton jButton_KarteLesen;
+    private javax.swing.JButton jButton_Löschen;
+    private javax.swing.JButton jButton_Stornieren;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_KartenID;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jText_Klasse;
+    private javax.swing.JTextField jText_Name;
     // End of variables declaration//GEN-END:variables
 }
