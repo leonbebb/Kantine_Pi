@@ -13,30 +13,48 @@
  * 	or implied. See the License for the specific language governing * 	
  * 	permissions and limitations under the License. * 	
  */
-package kantine_pi.aufladesystem;
+package kantine_pi;
 
 /**
  *
  * @author Leon Bebbington
  */
-class ButtonZustand {
+public class NFCVorgang {
+        private String status;
+        private KartenDaten kd ;
+ 
+        NFCVorgang(){
+            this.status = "kein Status";
+            this.kd = kd;
+        }
 
-    public boolean KarteLesenEnabled;
-    public boolean AufladeGruppeEnabled;
-    public boolean AuszahlenEnabled;
-    public boolean KarteLöschenEnabled;
-    public boolean BearbeitenEnabled;
-    public boolean AufladenStornierenEnabled;
-    public boolean BearbeitenAktiv;
-
-    public ButtonZustand() {
-        KarteLesenEnabled = true;
-        AufladeGruppeEnabled = false;
-        AuszahlenEnabled = false;
-        KarteLöschenEnabled = false;
-        BearbeitenEnabled = false;
-        AufladenStornierenEnabled = false;
-        BearbeitenAktiv = false;
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
     }
 
+    /**
+     * @return the kd
+     */
+    public KartenDaten getKd() {
+        return kd;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @param kd the kd to set
+     */
+    public void setKd(KartenDaten kd) {
+        this.kd = kd;
+    }
+        
+        
 }

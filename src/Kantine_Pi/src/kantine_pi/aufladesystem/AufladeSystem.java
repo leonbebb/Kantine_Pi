@@ -15,6 +15,8 @@
  */
 package kantine_pi.aufladesystem;
 
+import kantine_pi.LEDKontroller;
+
 /**
  *
  * @author Leon Bebbington
@@ -34,7 +36,7 @@ public class AufladeSystem {
     }
     
     
-    private static void StartApplication(String key_file){
+    private static void StartApplication(final String key_file){
            /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             private AufladeSystemGUI gui;
@@ -44,14 +46,15 @@ public class AufladeSystem {
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                 
         
-                AufladeModell model = new AufladeModell();
+                AufladeModell model = new AufladeModell(key_file);
                 gui = new AufladeSystemGUI(model);
                 model.setGUI(gui);
-                
                 
                 frame.getContentPane().add(gui);
                 frame.pack();
                 frame.setVisible(true);
+                
+                LEDKontroller.getInstance().setBereit(true);
             }
         });
         

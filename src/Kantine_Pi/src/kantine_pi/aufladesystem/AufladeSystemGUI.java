@@ -69,6 +69,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jButton_KarteLesen = new javax.swing.JButton();
+        jLabelVorgangStatus = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(32167, 32167));
@@ -103,7 +104,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel_AufladeBetrag.add(jLabel2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -187,7 +188,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jPanel3.add(jButton4, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 23;
@@ -267,7 +268,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 74;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -279,6 +280,11 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
 
         jButton_Auszahlen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton_Auszahlen.setText("Auzahlen");
+        jButton_Auszahlen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_AuszahlenActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 9);
         jPanel5.add(jButton_Auszahlen, gridBagConstraints);
@@ -311,7 +317,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.ipady = 10;
@@ -321,7 +327,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         jButton_Aufladen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton_Aufladen.setText("Aufladen");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
@@ -342,7 +348,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel6, gridBagConstraints);
@@ -355,12 +361,21 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 44;
         gridBagConstraints.ipady = 32;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 147);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(9, 19, 1, 19);
         add(jButton_KarteLesen, gridBagConstraints);
+
+        jLabelVorgangStatus.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabelVorgangStatus.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(jLabelVorgangStatus, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jText_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jText_NameActionPerformed
@@ -405,22 +420,34 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_BearbeitenActionPerformed
 
     private void jButton_KarteLesenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KarteLesenActionPerformed
-        if (model != null){
+        if (model != null) {
             model.karteLesen();
         }
     }//GEN-LAST:event_jButton_KarteLesenActionPerformed
 
-    
-    public void setButtonZustand(final ButtonZustand bz){
-            SwingUtilities.invokeLater(new Runnable() {
+    private void jButton_AuszahlenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AuszahlenActionPerformed
+ if (model != null) {
+            model.auszahlen();
+        }     
+    }//GEN-LAST:event_jButton_AuszahlenActionPerformed
+
+    public void setButtonZustand(final ButtonZustand bz) {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                
+
                 jButton_KarteLesen.setEnabled(bz.KarteLesenEnabled);
-                
-                jButton_Auszahlen.setEnabled(bz.SonderfunktionGruppeEnabled);
-                jButton_Löschen.setEnabled(bz.SonderfunktionGruppeEnabled);
-                jButton_Bearbeiten.setEnabled(bz.SonderfunktionGruppeEnabled);
-                jButton_Stornieren.setEnabled(bz.SonderfunktionGruppeEnabled);
+
+                jButton_Auszahlen.setEnabled(bz.AuszahlenEnabled);
+                jButton_Löschen.setEnabled(bz.KarteLöschenEnabled);
+                jButton_Bearbeiten.setEnabled(bz.BearbeitenEnabled);
+                jButton_Stornieren.setEnabled(bz.AufladenStornierenEnabled);
+
+                if (bz.BearbeitenAktiv) {
+                    jButton_Bearbeiten.setText("Speichern");
+
+                } else {
+                    jButton_Bearbeiten.setText("Bearbeiten");
+                }
 
                 jButton_Aufladen.setEnabled(bz.AufladeGruppeEnabled);
                 jButton1.setEnabled(bz.AufladeGruppeEnabled);
@@ -430,7 +457,15 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
             }
         });
     }
-    
+
+    public void setGuthaben(final String name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jLabel_Guthaben.setText(name);
+            }
+        });
+    }
+
     public void setKarteName(final String name) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -454,11 +489,18 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
             }
         });
     }
+    
+     void setStatus(final String status) {
+       SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jLabelVorgangStatus.setText(status);
+            }
+        });    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(final String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -490,7 +532,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
             public void run() {
                 javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystemGUI");
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                AufladeModell model = new AufladeModell();
+                AufladeModell model = new AufladeModell(args[0]);
                 gui = new AufladeSystemGUI(model);
                 model.setGUI(gui);
                 frame.getContentPane().add(gui);
@@ -517,6 +559,7 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelVorgangStatus;
     private javax.swing.JLabel jLabel_Guthaben;
     private javax.swing.JLabel jLabel_KartenID;
     private javax.swing.JPanel jPanel1;
@@ -528,4 +571,6 @@ public class AufladeSystemGUI extends javax.swing.JPanel {
     private javax.swing.JTextField jText_Klasse;
     private javax.swing.JTextField jText_Name;
     // End of variables declaration//GEN-END:variables
+
+   
 }

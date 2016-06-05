@@ -15,6 +15,8 @@
  */
 package kantine_pi;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 
 /**
  * NFCKontroller überprüft ob die karte gelesen werden kann und wenn nicht ob
@@ -35,23 +38,44 @@ import java.util.logging.Logger;
  */
 public class NFCKontroller {
 
+    public static final String STATUS_LESEN_OK = "LESEN OK";
+    public static final String STATUS_SCAN_FEHLER = "SCAN FEHLER";
+    public static final String STATUS_DATEN_FEHLER = "DATEN FEHLER";
+
+
+    
+
+    
     private static final String CMD_SCANCARD = "nfc-list";
     private static final String CMD_READCARD = "nfc-mfclassic r a ";
     private static final String CMD_WRITECARD = "nfc-mfclassic w a ";
-
+    
+    private static final String ALT_KARTEN_DATEN = "alt.mfd";
+    private static final String NEU_KARTEN_DATEN = "neu.mfd";
+    
+    
+    
+    private static final int BLINK_DELAY = 250; // 1/4 Sekunde
     private int anzahl_karten;
     private long karten_id;
-
+    private Keys keys;
+    
+    public NFCKontroller(String key_file) {
+        keys = new Keys(key_file);
+        DES3_Verschlüsselung.keys_laden(keys.getKey1(), keys.getKey2());
+        
+    }
+    
     public boolean scancard() {
         boolean scan_ok = false;
         anzahl_karten = 0;
         karten_id = 0;
-
+        
         try {
             ArrayList<String> antwort = pisystemcall(CMD_SCANCARD);
-
+            
             for (String s : antwort) {
-
+                
                 if (s.contains("ISO14443A")) {
                     String anzahl = s.substring(0, s.indexOf("ISO14443A"));
                     anzahl = anzahl.trim();
@@ -64,49 +88,56 @@ public class NFCKontroller {
                     karten_id = Long.parseLong(id, 16);
                 }
             }
-
+            
             scan_ok = (anzahl_karten == 1 && karten_id != 0);
-
+            
         } catch (IOException ex) {
-            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NFCKontroller.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            
         } catch (InterruptedException ex) {
-            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NFCKontroller.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return scan_ok;
-
+        
     }
-
+    
     public boolean writedata(String new_daten_file, String old_daten_file) {
         boolean write_ok = false;
         boolean write_done = false;
         long id_read = 0;
-
+        
         try {
             ArrayList<String> antwort = pisystemcall(CMD_WRITECARD + new_daten_file + " " + old_daten_file);
             for (String s : antwort) {
                 if (s.contains("Done, 63 of 64 blocks written.")) {
                     write_done = true;
                 }
-
+                
                 if (s.contains("UID (NFCID1):")) {
                     String id = s.substring(s.indexOf("UID (NFCID1):") + 13, s.length());
                     id = id.trim();
                     id = id.replaceAll(" ", "");
                     id_read = Long.parseLong(id, 16);
+                    
                 }
             }
-
+            
         } catch (IOException ex) {
-            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NFCKontroller.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            
         } catch (InterruptedException ex) {
-            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NFCKontroller.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         write_ok = write_done && (id_read == this.karten_id);
-
+        
         return write_ok;
     }
-
+    
     public boolean readdata(String daten_file) {
         boolean read_ok = false;
         boolean read_done = false;
@@ -115,7 +146,7 @@ public class NFCKontroller {
         try {
             ArrayList<String> antwort = pisystemcall(CMD_READCARD + daten_file);
             for (String s : antwort) {
-
+                
                 if (s.contains("Done, 64 of 64 blocks read.")) {
                     read_done = true;
                 }
@@ -129,20 +160,23 @@ public class NFCKontroller {
                     id_read = Long.parseLong(id, 16);
                 }
             }
-
+            
             read_ok = read_done && file_written && (id_read == this.karten_id);
-
+            
         } catch (IOException ex) {
-            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NFCKontroller.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            
         } catch (InterruptedException ex) {
-            Logger.getLogger(NFCKontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NFCKontroller.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return read_ok;
     }
-
+    
     private ArrayList<String> pisystemcall(String cmd) throws IOException, InterruptedException {
-
+        
         ArrayList<String> antwort = new ArrayList<String>();
         Runtime r = Runtime.getRuntime();
         Process p = r.exec(cmd);
@@ -152,7 +186,7 @@ public class NFCKontroller {
         while ((line = b.readLine()) != null) {
             antwort.add(line);
         }
-
+        
         b.close();
         return antwort;
     }
@@ -170,99 +204,74 @@ public class NFCKontroller {
     public long getKarten_id() {
         return karten_id;
     }
-
+    
     public static void main(String[] args) throws InterruptedException {
-                NFCKontroller nfc = new NFCKontroller();
-
         
-        nfc.writeCard();
-        nfc.readCard();
-        nfc.clearCard();
-        nfc.writeEncryptedCard();
+        NFCKontroller nfc = new NFCKontroller(args[0]);
+        
+        NFCVorgang readEncryptedCard = nfc.readEncryptedCard();
+        
+        readEncryptedCard.getKd().setGuthaben(03.05);
+        
+        nfc.writeEncryptedCard(readEncryptedCard.getKd());
     }
-
+    
     public void clearCard() {
-
-        boolean ok = scancard();
-        ok = readdata("clear_card_old.mfd");
         
-        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("clear_card_old.mfd"));
+        boolean ok = scancard();
+        ok = readdata(ALT_KARTEN_DATEN);
+        
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File(ALT_KARTEN_DATEN));
         byte[] gus = kartendaten.getUsableSpace();
         byte zero = 0;
         Arrays.fill(gus, zero);
         kartendaten.setUsableSpace(gus);
-        kartendaten.writeMiFare_1KDaten(new File("clear_card_new.mfd"));
-
-        ok = writedata("clear_card_new.mfd", "clear_card_old.mfd");
-
+        kartendaten.writeMiFare_1KDaten(new File(NEU_KARTEN_DATEN));
+        
+        ok = writedata(NEU_KARTEN_DATEN, ALT_KARTEN_DATEN);
+        
     }
-
-    public  void writeCard() {
-
+    
+    public void writeCard() {
+        
         boolean ok = scancard();
-        ok = readdata("write_card_old.mfd");
-
-        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("write_card_old.mfd"));
-
+        ok = readdata(ALT_KARTEN_DATEN);
+        
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File(ALT_KARTEN_DATEN));
+        
         byte[] gus = kartendaten.getUsableSpace();
         for (int i = 0; i < gus.length; i++) {
             gus[i] = (byte) (i % 100);
         }
-
+        
         kartendaten.setUsableSpace(gus);
-        kartendaten.writeMiFare_1KDaten(new File("write_card_new.mfd"));
-        ok = writedata("write_card_new.mfd", "write_card_old.mfd");
-    }
-
-     public  void writeEncryptedCard() {
-
-        Keys keys = new Keys("keys.txt");     
-        DES3_Verschlüsselung.keys_laden(keys.getKey1(), keys.getKey2());
-
-        boolean ok = scancard();
-        ok = readdata("encrypt_card_old.mfd");
-        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("encrypt_card_old.mfd"));
-
-        
-        long id = getKarten_id();
-        Kunde k = new Kunde(id, "Leon Bebbington", "25A");
-        LocalDateTime ts = LocalDateTime.now();
-        KartenDaten kd = new KartenDaten(k, 12.34, ts, ts);
-
-        String encoded = DES3_Verschlüsselung.encode(kd.to_string());
-        byte[] encoded_bytes = encoded.getBytes();
-        byte[] encoded_byte_und_länge = new byte[encoded_bytes.length + 4];
-        ByteBuffer bb = ByteBuffer.wrap(encoded_byte_und_länge);
-        bb.putInt(encoded_bytes.length);
-        bb.put(encoded_bytes);
-
-        kartendaten.setUsableSpace(encoded_byte_und_länge);
-        
-        kartendaten.writeMiFare_1KDaten(new File("encrypt_card_new.mfd"));
-        ok = writedata("encrypt_card_new.mfd", "encrypt_card_old.mfd");
-        
-        ok = scancard();
-        ok = readdata("read_encrpt_card.mfd");
-    
-        
+        kartendaten.writeMiFare_1KDaten(new File(NEU_KARTEN_DATEN));
+        ok = writedata(NEU_KARTEN_DATEN, ALT_KARTEN_DATEN);
     }
     
-    
-     public  void readEncryptedCard() {
-
-        Keys keys = new Keys("keys.txt");     
-        DES3_Verschlüsselung.keys_laden(keys.getKey1(), keys.getKey2());
-
-        boolean ok = scancard();
-        ok = readdata("encrypt_card_old.mfd");
-        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File("encrypt_card_old.mfd"));
+    public KartenDaten writeEncryptedCard(KartenDaten kd) {
         
+        boolean ok = scancard();
+        
+        if (!ok) {
+            return null; // keine karte gefunden.
+        }
+        
+        ok = readdata(ALT_KARTEN_DATEN);
+        
+        if (!ok) {
+            return null; // keine karte gefunden.
+        }
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File(ALT_KARTEN_DATEN));
         
         long id = getKarten_id();
-        Kunde k = new Kunde(id, "Leon Bebbington", "25A");
+        
+        if (id != kd.getKunden_daten().getId()) {
+            return null; // kann nicht daten an Karte mit andere ID.
+        }
+        
         LocalDateTime ts = LocalDateTime.now();
-        KartenDaten kd = new KartenDaten(k, 12.34, ts, ts);
-
+        kd.setDatum_zuletzt_beschrieben(ts);
         
         String encoded = DES3_Verschlüsselung.encode(kd.to_string());
         byte[] encoded_bytes = encoded.getBytes();
@@ -270,22 +279,66 @@ public class NFCKontroller {
         ByteBuffer bb = ByteBuffer.wrap(encoded_byte_und_länge);
         bb.putInt(encoded_bytes.length);
         bb.put(encoded_bytes);
-
+        
         kartendaten.setUsableSpace(encoded_byte_und_länge);
+        kartendaten.writeMiFare_1KDaten(new File(NEU_KARTEN_DATEN));
+        ok = writedata(NEU_KARTEN_DATEN, ALT_KARTEN_DATEN);
         
-        kartendaten.writeMiFare_1KDaten(new File("encrypt_card_new.mfd"));
-        ok = writedata("encrypt_card_new.mfd", "encrypt_card_old.mfd");
+        if (!ok) {
+            return null;
+        }
         
-        ok = scancard();
-        ok = readdata("read_encrpt_card.mfd");
-    
-        
+        return kd;
     }
     
-     
+    public NFCVorgang readEncryptedCard() {
+        
+        NFCVorgang vorgang = new NFCVorgang();
+        
+        boolean ok = scancard();
+        if (!ok) {
+            vorgang.setStatus(STATUS_SCAN_FEHLER);
+            return vorgang; // keine karte gefunden.
+        }
+        ok = readdata(ALT_KARTEN_DATEN);
+        if (!ok) {
+            vorgang.setStatus(STATUS_DATEN_FEHLER);
+            return vorgang; // keine karte gefunden.
+        }
+        
+        long id = getKarten_id();
+        
+        MiFare_1KDaten kartendaten = new MiFare_1KDaten(new File(ALT_KARTEN_DATEN));
+        
+        byte[] encoded_byte_und_länge = kartendaten.getUsableSpace();
+        ByteBuffer bb = ByteBuffer.wrap(encoded_byte_und_länge);
+        bb.rewind();
+        int data_length = bb.getInt();
+        if (data_length > encoded_byte_und_länge.length) {
+            vorgang.setStatus(STATUS_DATEN_FEHLER);
+            return vorgang; // keine karte gefunden.
+        }
+        byte[] encoded_bytes = new byte[data_length];
+        bb.get(encoded_bytes);
+        String encoded_string = new String(encoded_bytes);
+        
+        String decoded_string = DES3_Verschlüsselung.decode(encoded_string);
+        
+        try {
+        KartenDaten kd = new KartenDaten(decoded_string);
+        vorgang.setStatus(STATUS_LESEN_OK);
+        vorgang.setKd(kd);
+        
+        } catch (Exception e){
+            vorgang.setStatus(STATUS_DATEN_FEHLER);            
+        }
+       
+        return vorgang;
+    }
+    
     public void readCard() {
         boolean ok = scancard();
-        ok = readdata("read_card.mfd");
+        ok = readdata(ALT_KARTEN_DATEN);
     }
-
+    
 }

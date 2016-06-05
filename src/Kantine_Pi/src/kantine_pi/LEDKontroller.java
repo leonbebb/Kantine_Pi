@@ -15,16 +15,19 @@
  */
 package kantine_pi;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 
 /**
  * LEDKontroller steuert 3 LEDs und verwendet ein boolean um den zustand des
  * Lesevorgangs auszugeben
  *
- * @author Leon Bebbington
+ * @author Leon Bebbington, John Bebbington
  */
 public class LEDKontroller {
 
@@ -39,7 +42,65 @@ public class LEDKontroller {
     private boolean gelesen_ok;     // grün LED
     private boolean lese_error;     // rot LED
 
-    public LEDKontroller() {
+    public LeserLEDTimer    leser_blinker;
+    public SchreiberLEDTimer schreiber_blinker;
+
+    private static LEDKontroller instance = null;
+
+    public class LeserLEDTimer implements ActionListener {
+
+        private boolean toggle;
+        private final Timer blinker;
+
+        LeserLEDTimer(int delay) {
+            this.toggle = false;
+            blinker = new Timer(delay, this);
+            blinker.setRepeats(true);
+            blinker.setInitialDelay(0);
+            blinker.setCoalesce(true);
+        }
+
+        public void start() {
+            blinker.start();
+        }
+
+        public void stop() {
+            blinker.stop();
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            toggle = !toggle;
+            LEDKontroller.getInstance().setGelesen_ok(toggle);
+        }
+
+    }
+
+    public class SchreiberLEDTimer implements ActionListener {
+
+        private boolean toggle;
+        private final Timer blinker;
+
+        SchreiberLEDTimer(int delay) {
+            this.toggle = false;
+            blinker = new Timer(delay, this);
+        }
+
+        public void start() {
+            blinker.start();
+        }
+
+        public void stop() {
+            blinker.stop();
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            toggle = !toggle;
+            LEDKontroller.getInstance().setLese_error(toggle);
+        }
+
+    }
+
+    private LEDKontroller() {
 
         bereit = false;
         gelesen_ok = false;
@@ -54,6 +115,16 @@ public class LEDKontroller {
         pisystemcall(cmd_LED(LED_GRUEN_GPIO_PIN, AUS));
         pisystemcall(cmd_LED(LED_ROT_GPIO_PIN, AUS));
 
+        // bau die blnker timers.
+        leser_blinker = new LeserLEDTimer(250);
+        schreiber_blinker = new SchreiberLEDTimer(250);
+    }
+
+    public static LEDKontroller getInstance() {
+        if (instance == null) {
+            instance = new LEDKontroller();
+        }
+        return instance;
     }
 
     protected void finalize() {
@@ -108,8 +179,6 @@ public class LEDKontroller {
         pisystemcall(cmd_LED(LED_ROT_GPIO_PIN, this.lese_error));
     }
 
-    
-    
     private String cmd_initializierLED(String gpio_pin) {
         return "sudo gpio -g mode " + gpio_pin + " out";
     }
@@ -119,7 +188,6 @@ public class LEDKontroller {
         return an ? cmd + " 1" : cmd + " 0";
     }
 
-    
     private ArrayList<String> pisystemcall(String cmd) {
 
         ArrayList<String> antwort = new ArrayList<String>();
@@ -134,7 +202,7 @@ public class LEDKontroller {
         } catch (InterruptedException ex) {
             Logger.getLogger(LEDKontroller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return antwort;
     }
 
@@ -142,10 +210,9 @@ public class LEDKontroller {
 
         LEDKontroller lc = new LEDKontroller();
 
-   
         boolean toggle = false;
         for (;;) {
-            toggle =  !toggle;           
+            toggle = !toggle;
             lc.pisystemcall(lc.cmd_LED(LED_BLAU_GPIO_PIN, toggle));
             lc.pisystemcall(lc.cmd_LED(LED_GRUEN_GPIO_PIN, toggle));
             lc.pisystemcall(lc.cmd_LED(LED_ROT_GPIO_PIN, toggle));

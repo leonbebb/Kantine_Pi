@@ -23,11 +23,16 @@ import java.time.LocalDateTime;
  */
 public class KartenDaten {
 
+    public static final String INHALT_UNGÜLTIG = "INHALT_UNGÜLTIG";
+    public static final String INHALT_UNBEKANNT = "-";
+    
     private Kunde kunden_daten;
     private double guthaben;
     private LocalDateTime datum_initializiert;
     private LocalDateTime datum_zuletzt_beschrieben;
 
+    
+    
     public KartenDaten(Kunde kunde, double guthaben, LocalDateTime initializiert, LocalDateTime zuletzt_beschrieben) {
         this.kunden_daten = kunde;
         this.guthaben = guthaben;
@@ -37,12 +42,12 @@ public class KartenDaten {
     }
 
     KartenDaten(String decoded) {
-        String[] werte = decoded.split(",");
-        long id = Long.parseLong(werte[0]);
-        this.kunden_daten = new Kunde(id, werte[1], werte[2]);
-        this.guthaben = Double.parseDouble(werte[3]);
-        this.datum_initializiert = LocalDateTime.parse(werte[4]);
-        this.datum_zuletzt_beschrieben = LocalDateTime.parse(werte[5]);
+            String[] werte = decoded.split(",");
+            long id = Long.parseLong(werte[0]);
+            this.kunden_daten = new Kunde(id, werte[1], werte[2]);
+            this.guthaben = Double.parseDouble(werte[3]);
+            this.datum_initializiert = LocalDateTime.parse(werte[4]);
+            this.datum_zuletzt_beschrieben = LocalDateTime.parse(werte[5]);
     }
 
     /**
@@ -102,13 +107,13 @@ public class KartenDaten {
     }
 
     String to_string() {
-        String s ="";
-        s = this.kunden_daten.getId() + "," + 
-                this.kunden_daten.getName() + "," + 
-                this.kunden_daten.getKlasse() + "," + 
-                this.guthaben + "," +
-                this.datum_initializiert.toString() + "," +
-                this.datum_zuletzt_beschrieben.toString() ;
-     return s;
+        String s = "";
+        s = this.kunden_daten.getId() + ","
+                + this.kunden_daten.getName() + ","
+                + this.kunden_daten.getKlasse() + ","
+                + this.guthaben + ","
+                + this.datum_initializiert.toString() + ","
+                + this.datum_zuletzt_beschrieben.toString();
+        return s;
     }
 }

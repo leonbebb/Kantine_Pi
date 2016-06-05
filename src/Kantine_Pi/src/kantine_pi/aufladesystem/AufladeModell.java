@@ -15,32 +15,49 @@
  */
 package kantine_pi.aufladesystem;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import kantine_pi.KartenDaten;
 import kantine_pi.LEDKontroller;
 import kantine_pi.NFCKontroller;
+import kantine_pi.NFCVorgang;
 
 /**
  * TODO beschreibung
  *
- * @author Leon Bebbington
+ * @author Leon Bebbington, John Bebbington
  */
-public class AufladeModell {
+public class AufladeModell implements Runnable {
 
     private static final double MAXGUTHABEN_EURO = 70.00;
     private static final double MAXAUFLADUNG_EURO = 50.00;
     private double aufladebetrag = 0.00;
+
+    private KartenDaten aktuelle_kartendaten;
+
+    private NFCVorgang karten_vorgang;
     private AufladeSystemGUI gui;
     private ButtonZustand bz;
-    
+
     private NFCKontroller nfc;
     private LEDKontroller leds;
+    private boolean alive = true;
 
-    
-    
-    AufladeModell() {
+    private Thread worker = new Thread(this);
+    private ArrayBlockingQueue<String> commandQ;
 
-        nfc = new NFCKontroller();
-        leds  = new LEDKontroller();
-        
+    AufladeModell(String key_filename) {
+
+        aktuelle_kartendaten = null;
+
+        nfc = new NFCKontroller(key_filename);
+        leds = LEDKontroller.getInstance();
+        commandQ = new ArrayBlockingQueue<String>(20);
+        worker.start();
+
     }
 
     void setGUI(AufladeSystemGUI gui) {
@@ -69,15 +86,146 @@ public class AufladeModell {
         aufladebetrag = 0.0;
     }
 
-    void karteLesen() {
-        leds.setGelesen_ok(true);
-        System.out.println("karte lesen");
-        
-        bz.AufladeGruppeEnabled=true;
-        bz.SonderfunktionGruppeEnabled=true;
-        
-                this.gui.setButtonZustand(bz);
-
-       // nfc.readEncryptedCard();
+    void auszahlen() {
+        try {
+            commandQ.put("AUSZAHLEN");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AufladeModell.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    void karteLesen() {
+        try {
+            commandQ.put("LESEN");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AufladeModell.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void auszahlenAufgabe() {
+
+        leds.setGelesen_ok(false);
+        leds.setLese_error(false);
+
+        if (aktuelle_kartendaten != null) {
+
+            double alte_guthaben = aktuelle_kartendaten.getGuthaben();
+            long alte_id = aktuelle_kartendaten.getKunden_daten().getId();
+
+            aktuelle_kartendaten.setGuthaben(0.0);
+
+            leds.schreiber_blinker.start();
+            KartenDaten neu_kartendaten = nfc.writeEncryptedCard(aktuelle_kartendaten);
+            karten_vorgang = nfc.readEncryptedCard();
+            leds.schreiber_blinker.stop();
+
+            if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_LESEN_OK)) {
+
+                aktuelle_kartendaten = karten_vorgang.getKd();
+
+                if (alte_id == aktuelle_kartendaten.getKunden_daten().getId()) {
+                    leds.setGelesen_ok(true);
+                    leds.setLese_error(false);
+                } else {
+                    leds.setGelesen_ok(false);
+                    leds.setLese_error(true);
+                }
+
+            } else {
+                aktuelle_kartendaten.setGuthaben(alte_guthaben);
+                leds.setGelesen_ok(false);
+                leds.setLese_error(true);
+            }
+
+        }
+    }
+
+    private void kartenLesenAufgabe() {
+
+        leds.setGelesen_ok(true);
+        leds.setLese_error(false);
+
+        NumberFormat formatter = new DecimalFormat("#0.00 €");
+
+        System.out.println("karte lesen");
+
+        leds.leser_blinker.start();
+
+        karten_vorgang = nfc.readEncryptedCard();
+
+        leds.leser_blinker.stop();
+
+        this.gui.setStatus(karten_vorgang.getStatus());
+
+        if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_LESEN_OK)) {
+
+            leds.setGelesen_ok(true);
+            leds.setLese_error(false);
+
+            aktuelle_kartendaten = karten_vorgang.getKd();
+
+            this.gui.setGuthaben(formatter.format(aktuelle_kartendaten.getGuthaben()));
+            this.gui.setKartenID(aktuelle_kartendaten.getKunden_daten().getId() + "");
+            this.gui.setKarteName(aktuelle_kartendaten.getKunden_daten().getName());
+            this.gui.setKlasse(aktuelle_kartendaten.getKunden_daten().getKlasse());
+
+            bz.AufladeGruppeEnabled = true;
+            bz.AufladenStornierenEnabled = true;
+            bz.AuszahlenEnabled = true;
+            bz.BearbeitenEnabled = true;
+            bz.KarteLöschenEnabled = true;
+
+        } else if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_SCAN_FEHLER)) {
+            leds.setGelesen_ok(false);
+            leds.setLese_error(true);
+
+            this.gui.setGuthaben("--.-- €");
+            this.gui.setKartenID(KartenDaten.INHALT_UNBEKANNT);
+            this.gui.setKarteName(KartenDaten.INHALT_UNBEKANNT);
+            this.gui.setKlasse(KartenDaten.INHALT_UNBEKANNT);
+
+            bz.AufladeGruppeEnabled = false;
+            bz.AufladenStornierenEnabled = false;
+            bz.AuszahlenEnabled = false;
+            bz.BearbeitenEnabled = false;
+            bz.KarteLöschenEnabled = false;
+
+        } else if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_DATEN_FEHLER)) {
+            leds.setGelesen_ok(false);
+            leds.setLese_error(true);
+
+            this.gui.setGuthaben("--.-- €");
+            this.gui.setKartenID(KartenDaten.INHALT_UNGÜLTIG);
+            this.gui.setKarteName(KartenDaten.INHALT_UNGÜLTIG);
+            this.gui.setKlasse(KartenDaten.INHALT_UNGÜLTIG);
+
+            bz.AufladeGruppeEnabled = false;
+            bz.AufladenStornierenEnabled = false;
+            bz.AuszahlenEnabled = false;
+            bz.BearbeitenEnabled = false;
+            bz.KarteLöschenEnabled = true;
+
+        }
+
+        this.gui.setButtonZustand(bz);
+
+    }
+
+    public void run() {
+
+        while (alive) {
+            try {
+                String command = commandQ.take();
+                if (command.equalsIgnoreCase("LESEN")) {
+                    this.kartenLesenAufgabe();
+                } else if (command.equalsIgnoreCase("AUSZAHLEN")) {
+                    this.auszahlenAufgabe();
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AufladeModell.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
 }
