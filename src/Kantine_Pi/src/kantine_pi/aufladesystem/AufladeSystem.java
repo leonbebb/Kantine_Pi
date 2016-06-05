@@ -15,6 +15,7 @@
  */
 package kantine_pi.aufladesystem;
 
+import javax.swing.JFrame;
 import kantine_pi.LEDKontroller;
 
 /**
@@ -53,6 +54,8 @@ public class AufladeSystem {
                 frame.getContentPane().add(gui);
                 frame.pack();
                 frame.setVisible(true);
+                frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
                 
                 LEDKontroller.getInstance().setBereit(true);
             }
