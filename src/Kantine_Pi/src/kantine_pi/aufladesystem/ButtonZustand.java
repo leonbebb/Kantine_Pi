@@ -26,7 +26,7 @@ class ButtonZustand {
     public boolean AuszahlenEnabled;
     public boolean KarteLöschenEnabled;
     public boolean BearbeitenEnabled;
-    public boolean AufladenStornierenEnabled;
+    public boolean VorgangAbbrechenEnabled;
     public boolean BearbeitenAktiv;
 
     public ButtonZustand() {
@@ -35,7 +35,7 @@ class ButtonZustand {
         AuszahlenEnabled = false;
         KarteLöschenEnabled = false;
         BearbeitenEnabled = false;
-        AufladenStornierenEnabled = false;
+        VorgangAbbrechenEnabled = false;
         BearbeitenAktiv = false;
     }
 

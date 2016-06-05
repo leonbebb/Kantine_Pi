@@ -16,6 +16,7 @@
 package kantine_pi;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  *
@@ -25,6 +26,7 @@ public class KartenDaten {
 
     public static final String INHALT_UNGÜLTIG = "INHALT_UNGÜLTIG";
     public static final String INHALT_UNBEKANNT = "-";
+    public static final String INHALT_LEER = "LEER";
     
     private Kunde kunden_daten;
     private double guthaben;
@@ -49,6 +51,12 @@ public class KartenDaten {
             this.datum_initializiert = LocalDateTime.parse(werte[4]);
             this.datum_zuletzt_beschrieben = LocalDateTime.parse(werte[5]);
     }
+
+    public KartenDaten() {
+    this.kunden_daten = new Kunde(0, INHALT_LEER, INHALT_LEER);
+        this.guthaben = 0.0;
+        this.datum_initializiert = LocalDateTime.now();
+        this.datum_zuletzt_beschrieben = LocalDateTime.now();    }
 
     /**
      * @return the kunden_daten
