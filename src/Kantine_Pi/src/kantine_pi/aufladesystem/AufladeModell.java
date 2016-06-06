@@ -154,6 +154,14 @@ public class AufladeModell implements Runnable {
                 + aufladebetrag) >= MAXGUTHABEN_EURO) {
 
             aufladebetrag = MAXGUTHABEN_EURO - aktuelle_kartendaten.getGuthaben();
+            
+            int betrag = (int)aufladebetrag;
+            
+            int funfeuroscheine = betrag /5;
+            
+            // jetzt abrunden modulo 5 euro scheine
+            aufladebetrag = (funfeuroscheine * 5.0);
+            
             this.gui.setStatus("Max Guthaben " + MAXGUTHABEN_EURO + "€");
             this.gui.setAufladeBetrag(formatter.format(aufladebetrag));
         }
@@ -176,6 +184,8 @@ public class AufladeModell implements Runnable {
             leds.setLese_error(false);
 
             aktuelle_kartendaten = karten_vorgang.getKd();
+
+           this.gui.setStatus(aufladebetrag + "€ wird aufgeladen");
 
             this.gui.setGuthaben(formatter.format(aktuelle_kartendaten.getGuthaben()));
             this.gui.setAufladeBetrag(formatter.format(aufladebetrag));

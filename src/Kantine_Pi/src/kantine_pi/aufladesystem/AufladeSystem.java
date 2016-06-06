@@ -43,7 +43,7 @@ public class AufladeSystem {
             private AufladeSystemGUI gui;
             public void run() {
                 
-                javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystemGUI");
+                javax.swing.JFrame frame = new javax.swing.JFrame("AufladeSystem, V1.00");
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                 
         

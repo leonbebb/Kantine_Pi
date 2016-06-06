@@ -211,7 +211,7 @@ public class NFCKontroller {
         
         NFCVorgang readEncryptedCard = nfc.readEncryptedCard();
         
-        readEncryptedCard.getKd().setGuthaben(03.05);
+        readEncryptedCard.getKd().setGuthaben(37.05);
         
         nfc.writeEncryptedCard(readEncryptedCard.getKd());
     }
