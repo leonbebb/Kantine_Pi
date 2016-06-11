@@ -34,88 +34,109 @@ import kantine_pi.Katagorie;
  */
 public class KasseGUI extends javax.swing.JPanel {
 
-              private final KasseModell model;
+    private final KasseModell model;
 
-    
-     private class KeyAction extends AbstractAction {
-      public KeyAction(String actionCommand) {
-         putValue(ACTION_COMMAND_KEY, actionCommand);
-      }
+    private class KeyAction extends AbstractAction {
 
-      @Override
-      public void actionPerformed(ActionEvent actionEvt) {
-          if (model != null) model.sendKeyPress(actionEvt.getActionCommand());
-      }
-   }
-     
-     
-      private void setKeyBindings() {
-      ActionMap actionMap = getActionMap();
-      int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
-      InputMap inputMap = getInputMap(condition );
+        public KeyAction(String actionCommand) {
+            putValue(ACTION_COMMAND_KEY, actionCommand);
+        }
 
-      String vkLeft = "VK_LEFT";
-      String vkRight = "VK_RIGHT";
-      String vk0 = "VK_0";
-      String vk1 = "VK_1";
-      String vk2 = "VK_2";
-      String vk3 = "VK_3";
-      String vk4 = "VK_4";
-      String vk5 = "VK_5";
-      String vk6 = "VK_6";
-      String vk7 = "VK_7";
-      String vk8 = "VK_8";
-      String vk9 = "VK_9";
+        @Override
+        public void actionPerformed(ActionEvent actionEvt) {
+            if (model != null) {
+                model.sendKeyPress(actionEvt.getActionCommand());
+            }
+        }
+    }
 
-      
-      
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0), vk0);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), vk1);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), vk2);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), vk3);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), vk4);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), vk5);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), vk6);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_7, 0), vk7);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_8, 0), vk8);
-      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_9, 0), vk9);
+    private void setKeyBindings() {
+        ActionMap actionMap = getActionMap();
+        int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
+        InputMap inputMap = getInputMap(condition);
 
-      actionMap.put(vkLeft, new KeyAction(vkLeft));
-      actionMap.put(vkRight, new KeyAction(vkRight));
-      actionMap.put(vk0, new KeyAction(vk0));
-      actionMap.put(vk1, new KeyAction(vk1));
-      actionMap.put(vk2, new KeyAction(vk2));
-      actionMap.put(vk3, new KeyAction(vk3));
-      actionMap.put(vk4, new KeyAction(vk4));
-      actionMap.put(vk5, new KeyAction(vk5));
-      actionMap.put(vk6, new KeyAction(vk6));
-      actionMap.put(vk7, new KeyAction(vk7));
-      actionMap.put(vk8, new KeyAction(vk8));
-      actionMap.put(vk9, new KeyAction(vk9));
-   
+        String vkEscape = "VK_ESCAPE";
+        String vkEnter = "VK_ENTER";
 
-   }
-    
-    
-    
+        String vkF2 = "VK_F2";
+        String vkF12 = "VK_F12";
+        String vkMinus = "VK_MINUS";
+        String vkPlus = "VK_PLUS";
+
+        String vk0 = "VK_0";
+        String vk1 = "VK_1";
+        String vk2 = "VK_2";
+        String vk3 = "VK_3";
+        String vk4 = "VK_4";
+        String vk5 = "VK_5";
+        String vk6 = "VK_6";
+        String vk7 = "VK_7";
+        String vk8 = "VK_8";
+        String vk9 = "VK_9";
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), vkEscape);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), vkEnter);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), vkF2);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), vkF12);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, 0), vkMinus);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), vkPlus);
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), vkPlus);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), vkMinus);
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0), vk0);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), vk1);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), vk2);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), vk3);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), vk4);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), vk5);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), vk6);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_7, 0), vk7);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_8, 0), vk8);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_9, 0), vk9);
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), vk0);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), vk1);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), vk2);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), vk3);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), vk4);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), vk5);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), vk6);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), vk7);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), vk8);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), vk9);
+
+        actionMap.put(vkEscape, new KeyAction(vkEscape));
+        actionMap.put(vkEnter, new KeyAction(vkEnter));
+        actionMap.put(vkF2, new KeyAction(vkF2));
+        actionMap.put(vkF12, new KeyAction(vkF12));
+        actionMap.put(vkMinus, new KeyAction(vkMinus));
+        actionMap.put(vkPlus, new KeyAction(vkPlus));
+
+        actionMap.put(vk0, new KeyAction(vk0));
+        actionMap.put(vk1, new KeyAction(vk1));
+        actionMap.put(vk2, new KeyAction(vk2));
+        actionMap.put(vk3, new KeyAction(vk3));
+        actionMap.put(vk4, new KeyAction(vk4));
+        actionMap.put(vk5, new KeyAction(vk5));
+        actionMap.put(vk6, new KeyAction(vk6));
+        actionMap.put(vk7, new KeyAction(vk7));
+        actionMap.put(vk8, new KeyAction(vk8));
+        actionMap.put(vk9, new KeyAction(vk9));
+
+    }
 
     /**
      * Creates new form KasseGUI
+     *
      * @param model KasseModell
      */
     public KasseGUI(KasseModell model) {
         this.model = model;
         initComponents();
         setKeyBindings();
-                
 
     }
-      
-    
-  
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,7 +151,7 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel_Guthaben = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_Einkaufssumme = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel_Artikelnummer = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -179,14 +200,14 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel2.setMinimumSize(new java.awt.Dimension(150, 120));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("00,00 €");
+        jLabel_Einkaufssumme.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_Einkaufssumme.setText("00,00 €");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel2.add(jLabel2, gridBagConstraints);
+        jPanel2.add(jLabel_Einkaufssumme, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -389,25 +410,38 @@ public class KasseGUI extends javax.swing.JPanel {
         add(jPanel7, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-      public void setGuthaben(final String name) {
+    public void setGuthaben(final String name) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 jLabel_Guthaben.setText(name);
             }
         });
     }
-    
-       public void setProduktCatagories(final Katagorie[] name) {
+
+    public void setArtikelnummer(final String name) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-    //            jLabel_Guthaben.setText(name);
+                jLabel_Artikelnummer.setText(name);
             }
         });
     }
-    
-      
-     
+
+    public void setEinkaufsSumme(final String name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jLabel_Einkaufssumme.setText(name);
+            }
+        });
+    }
+
+    public void setProduktCatagories(final Katagorie[] name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //            jLabel_Guthaben.setText(name);
+            }
+        });
+    }
+
 //      public void setProduktCatagories(final Katagorie[] name) {
 //        SwingUtilities.invokeLater(new Runnable() {
 //            public void run() {
@@ -502,8 +536,7 @@ public class KasseGUI extends javax.swing.JPanel {
 //        }
 //      }
 //     
-      
-        /**
+    /**
      * @param args the command line arguments
      */
     public static void main(final String args[]) {
@@ -513,12 +546,13 @@ public class KasseGUI extends javax.swing.JPanel {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels=javax.swing.UIManager.getInstalledLookAndFeels();
-            for (int idx=0; idx<installedLookAndFeels.length; idx++)
+            javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels = javax.swing.UIManager.getInstalledLookAndFeels();
+            for (int idx = 0; idx < installedLookAndFeels.length; idx++) {
                 if ("Nimbus".equals(installedLookAndFeels[idx].getName())) {
                     javax.swing.UIManager.setLookAndFeel(installedLookAndFeels[idx].getClassName());
                     break;
                 }
+            }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(KasseGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -535,7 +569,7 @@ public class KasseGUI extends javax.swing.JPanel {
             public void run() {
                 javax.swing.JFrame frame = new javax.swing.JFrame("Kasse");
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                KasseModell model = new KasseModell(args[0], args[1]);                
+                KasseModell model = new KasseModell(args[0], args[1]);
                 KasseGUI gui = new KasseGUI(model);
                 model.setGUI(gui);
                 frame.getContentPane().add(gui);
@@ -544,16 +578,16 @@ public class KasseGUI extends javax.swing.JPanel {
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel_Artikelnummer;
+    private javax.swing.JLabel jLabel_Einkaufssumme;
     private javax.swing.JLabel jLabel_Guthaben;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
