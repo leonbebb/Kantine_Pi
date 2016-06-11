@@ -63,17 +63,6 @@ public class KasseGUI extends javax.swing.JPanel {
         String vkMinus = "VK_MINUS";
         String vkPlus = "VK_PLUS";
 
-        String vk0 = "VK_0";
-        String vk1 = "VK_1";
-        String vk2 = "VK_2";
-        String vk3 = "VK_3";
-        String vk4 = "VK_4";
-        String vk5 = "VK_5";
-        String vk6 = "VK_6";
-        String vk7 = "VK_7";
-        String vk8 = "VK_8";
-        String vk9 = "VK_9";
-
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), vkEscape);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), vkEnter);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), vkF2);
@@ -84,27 +73,27 @@ public class KasseGUI extends javax.swing.JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), vkPlus);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), vkMinus);
 
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0), vk0);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), vk1);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), vk2);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), vk3);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), vk4);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), vk5);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), vk6);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_7, 0), vk7);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_8, 0), vk8);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_9, 0), vk9);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0), model.vk0);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), model.vk1);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), model.vk2);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), model.vk3);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), model.vk4);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), model.vk5);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), model.vk6);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_7, 0), model.vk7);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_8, 0), model.vk8);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_9, 0), model.vk9);
 
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), vk0);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), vk1);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), vk2);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), vk3);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), vk4);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), vk5);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), vk6);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), vk7);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), vk8);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), vk9);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), model.vk0);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), model.vk1);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), model.vk2);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), model.vk3);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), model.vk4);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), model.vk5);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), model.vk6);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), model.vk7);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), model.vk8);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), model.vk9);
 
         actionMap.put(vkEscape, new KeyAction(vkEscape));
         actionMap.put(vkEnter, new KeyAction(vkEnter));
@@ -113,16 +102,16 @@ public class KasseGUI extends javax.swing.JPanel {
         actionMap.put(vkMinus, new KeyAction(vkMinus));
         actionMap.put(vkPlus, new KeyAction(vkPlus));
 
-        actionMap.put(vk0, new KeyAction(vk0));
-        actionMap.put(vk1, new KeyAction(vk1));
-        actionMap.put(vk2, new KeyAction(vk2));
-        actionMap.put(vk3, new KeyAction(vk3));
-        actionMap.put(vk4, new KeyAction(vk4));
-        actionMap.put(vk5, new KeyAction(vk5));
-        actionMap.put(vk6, new KeyAction(vk6));
-        actionMap.put(vk7, new KeyAction(vk7));
-        actionMap.put(vk8, new KeyAction(vk8));
-        actionMap.put(vk9, new KeyAction(vk9));
+        actionMap.put(model.vk0, new KeyAction(model.vk0));
+        actionMap.put(model.vk1, new KeyAction(model.vk1));
+        actionMap.put(model.vk2, new KeyAction(model.vk2));
+        actionMap.put(model.vk3, new KeyAction(model.vk3));
+        actionMap.put(model.vk4, new KeyAction(model.vk4));
+        actionMap.put(model.vk5, new KeyAction(model.vk5));
+        actionMap.put(model.vk6, new KeyAction(model.vk6));
+        actionMap.put(model.vk7, new KeyAction(model.vk7));
+        actionMap.put(model.vk8, new KeyAction(model.vk8));
+        actionMap.put(model.vk9, new KeyAction(model.vk9));
 
     }
 

@@ -15,6 +15,9 @@
  */
 package kantine_pi.kasse;
 
+import javax.swing.JFrame;
+import kantine_pi.LEDKontroller;
+
 /**
  *
  * @author Leon Bebbington
@@ -34,8 +37,28 @@ public class Kasse {
     }
     
     
-    private static void StartApplication(String preislist_file, String key_file){
-        
+    private static void StartApplication(final String preislist_file, final String key_file){
+              /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            private KasseGUI gui;
+            public void run() {
+                
+                javax.swing.JFrame frame = new javax.swing.JFrame("Kasse, V1.00");
+                frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                
+                KasseModell model = new KasseModell(key_file,preislist_file);
+                gui = new KasseGUI(model);
+                model.setGUI(gui);
+                
+                frame.getContentPane().add(gui);
+                frame.pack();
+                frame.setVisible(true);
+                frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
+                
+                LEDKontroller.getInstance().setBereit(true);
+            }
+        });
     }
 
 }
