@@ -15,18 +15,107 @@
  */
 package kantine_pi.kasse;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import static javax.swing.Action.ACTION_COMMAND_KEY;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import kantine_pi.Katagorie;
+
 /**
  *
  * @author Leon Bebbington
  */
 public class KasseGUI extends javax.swing.JPanel {
 
+              private final KasseModell model;
+
+    
+     private class KeyAction extends AbstractAction {
+      public KeyAction(String actionCommand) {
+         putValue(ACTION_COMMAND_KEY, actionCommand);
+      }
+
+      @Override
+      public void actionPerformed(ActionEvent actionEvt) {
+          if (model != null) model.sendKeyPress(actionEvt.getActionCommand());
+      }
+   }
+     
+     
+      private void setKeyBindings() {
+      ActionMap actionMap = getActionMap();
+      int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
+      InputMap inputMap = getInputMap(condition );
+
+      String vkLeft = "VK_LEFT";
+      String vkRight = "VK_RIGHT";
+      String vk0 = "VK_0";
+      String vk1 = "VK_1";
+      String vk2 = "VK_2";
+      String vk3 = "VK_3";
+      String vk4 = "VK_4";
+      String vk5 = "VK_5";
+      String vk6 = "VK_6";
+      String vk7 = "VK_7";
+      String vk8 = "VK_8";
+      String vk9 = "VK_9";
+
+      
+      
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0), vk0);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), vk1);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), vk2);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), vk3);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), vk4);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), vk5);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), vk6);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_7, 0), vk7);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_8, 0), vk8);
+      inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_9, 0), vk9);
+
+      actionMap.put(vkLeft, new KeyAction(vkLeft));
+      actionMap.put(vkRight, new KeyAction(vkRight));
+      actionMap.put(vk0, new KeyAction(vk0));
+      actionMap.put(vk1, new KeyAction(vk1));
+      actionMap.put(vk2, new KeyAction(vk2));
+      actionMap.put(vk3, new KeyAction(vk3));
+      actionMap.put(vk4, new KeyAction(vk4));
+      actionMap.put(vk5, new KeyAction(vk5));
+      actionMap.put(vk6, new KeyAction(vk6));
+      actionMap.put(vk7, new KeyAction(vk7));
+      actionMap.put(vk8, new KeyAction(vk8));
+      actionMap.put(vk9, new KeyAction(vk9));
+   
+
+   }
+    
+    
+    
+
     /**
      * Creates new form KasseGUI
+     * @param model KasseModell
      */
-    public KasseGUI() {
+    public KasseGUI(KasseModell model) {
+        this.model = model;
         initComponents();
+        setKeyBindings();
+                
+
     }
+      
+    
+  
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,17 +128,17 @@ public class KasseGUI extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel_Guthaben = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jLabel_Artikelnummer = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_Preislist = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable_ArtikelListe = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -68,15 +157,15 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel1.setName(""); // NOI18N
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("00,00 €");
-        jLabel3.setMinimumSize(new java.awt.Dimension(130, 22));
+        jLabel_Guthaben.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_Guthaben.setText("00,00 €");
+        jLabel_Guthaben.setMinimumSize(new java.awt.Dimension(130, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jLabel3, gridBagConstraints);
+        jPanel1.add(jLabel_Guthaben, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -109,25 +198,15 @@ public class KasseGUI extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Artikelnummer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel3.setFocusTraversalPolicyProvider(true);
+        jPanel3.setFocusable(false);
         jPanel3.setName(""); // NOI18N
         jPanel3.setRequestFocusEnabled(false);
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        jTextField1.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("888");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel3.add(jTextField1, gridBagConstraints);
+        jLabel_Artikelnummer.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jLabel_Artikelnummer.setText("000");
+        jLabel_Artikelnummer.setToolTipText("");
+        jPanel3.add(jLabel_Artikelnummer, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -141,7 +220,7 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel4.setMinimumSize(new java.awt.Dimension(250, 168));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_Preislist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 { new Integer(100), "bla",  new Double(1.02)},
                 { new Integer(101), "ble",  new Double(2.03)},
@@ -181,9 +260,10 @@ public class KasseGUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable1.setEnabled(false);
-        jTable1.setFillsViewportHeight(true);
-        jScrollPane1.setViewportView(jTable1);
+        jTable_Preislist.setEnabled(false);
+        jTable_Preislist.setFillsViewportHeight(true);
+        jTable_Preislist.setFocusable(false);
+        jScrollPane1.setViewportView(jTable_Preislist);
 
         jPanel4.add(jScrollPane1);
 
@@ -203,7 +283,7 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel5.setMinimumSize(new java.awt.Dimension(250, 168));
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_ArtikelListe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 { new Integer(101), "ble",  new Double(2.03),  new Integer(3),  new Double(6.09)},
                 {null, null, null, null, null},
@@ -222,8 +302,9 @@ public class KasseGUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable2.setFillsViewportHeight(true);
-        jScrollPane2.setViewportView(jTable2);
+        jTable_ArtikelListe.setFillsViewportHeight(true);
+        jTable_ArtikelListe.setFocusable(false);
+        jScrollPane2.setViewportView(jTable_ArtikelListe);
 
         jPanel5.add(jScrollPane2);
 
@@ -309,10 +390,123 @@ public class KasseGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
+      public void setGuthaben(final String name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jLabel_Guthaben.setText(name);
+            }
+        });
+    }
+    
+       public void setProduktCatagories(final Katagorie[] name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+    //            jLabel_Guthaben.setText(name);
+            }
+        });
+    }
+    
+      
+     
+//      public void setProduktCatagories(final Katagorie[] name) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                
+////                DefaultTableModel tm = new javax.swing.table.DefaultTableModel(
+////            new Object [][] {
+////                { new Integer(100), "bla",  new Double(1.02)},
+////                { new Integer(101), "ble",  new Double(2.03)},
+////                { new Integer(102), "bli",  new Double(2.0)},
+////                { new Integer(103), "a",  new Double(3.0)},
+////                { new Integer(104), "s",  new Double(4.0)},
+////                { new Integer(201), "b",  new Double(5.0)},
+////                { new Integer(202), "g",  new Double(6.0)},
+////                { new Integer(203), "d",  new Double(7.0)},
+////                { new Integer(305), "s",  new Double(8.0)},
+////                { new Integer(306), null, null},
+////                { new Integer(307), null, null},
+////                { new Integer(308), null, null},
+////                { new Integer(309), null, null},
+////                { new Integer(400), null, null},
+////                { new Integer(410), null, null},
+////                { new Integer(411), null, null},
+////                { new Integer(412), null, null},
+////                { new Integer(500), null, null},
+////                { new Integer(501), null, null},
+////                { new Integer(502), null, null},
+////                { new Integer(602), null, null},
+////                { new Integer(603), null, null},
+////                { new Integer(604), null, null},
+////                { new Integer(605), null, null},
+////                {null, null, null}
+////            },
+////            new String [] {
+////                "#", "Produkt", "Preis (€)"
+////            }
+////        ) {
+////            Class[] types = new Class [] {
+////                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+////            };
+////
+////            public Class getColumnClass(int columnIndex) {
+////                return types [columnIndex];
+////            }
+////        });                
+////            }
+////        });
+////                
+////                
+//// jTable_Preislist.setModel(new javax.swing.table.DefaultTableModel(
+////            new Object [][] {
+////                { new Integer(100), "bla",  new Double(1.02)},
+////                { new Integer(101), "ble",  new Double(2.03)},
+////                { new Integer(102), "bli",  new Double(2.0)},
+////                { new Integer(103), "a",  new Double(3.0)},
+////                { new Integer(104), "s",  new Double(4.0)},
+////                { new Integer(201), "b",  new Double(5.0)},
+////                { new Integer(202), "g",  new Double(6.0)},
+////                { new Integer(203), "d",  new Double(7.0)},
+////                { new Integer(305), "s",  new Double(8.0)},
+////                { new Integer(306), null, null},
+////                { new Integer(307), null, null},
+////                { new Integer(308), null, null},
+////                { new Integer(309), null, null},
+////                { new Integer(400), null, null},
+////                { new Integer(410), null, null},
+////                { new Integer(411), null, null},
+////                { new Integer(412), null, null},
+////                { new Integer(500), null, null},
+////                { new Integer(501), null, null},
+////                { new Integer(502), null, null},
+////                { new Integer(602), null, null},
+////                { new Integer(603), null, null},
+////                { new Integer(604), null, null},
+////                { new Integer(605), null, null},
+////                {null, null, null}
+////            },
+////            new String [] {
+////                "#", "Produkt", "Preis (€)"
+////            }
+////        ) {
+////            Class[] types = new Class [] {
+////                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+////            };
+////
+////            public Class getColumnClass(int columnIndex) {
+////                return types [columnIndex];
+////            }
+////        });                
+////            }
+////        });
+//    }
+//        }
+//      }
+//     
+      
         /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(final String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -341,26 +535,26 @@ public class KasseGUI extends javax.swing.JPanel {
             public void run() {
                 javax.swing.JFrame frame = new javax.swing.JFrame("Kasse");
                 frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new KasseGUI());
+                KasseModell model = new KasseModell(args[0], args[1]);                
+                KasseGUI gui = new KasseGUI(model);
+                model.setGUI(gui);
+                frame.getContentPane().add(gui);
                 frame.pack();
                 frame.setVisible(true);
             }
         });
     }
     
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel_Artikelnummer;
+    private javax.swing.JLabel jLabel_Guthaben;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -370,8 +564,7 @@ public class KasseGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTable_ArtikelListe;
+    private javax.swing.JTable jTable_Preislist;
     // End of variables declaration//GEN-END:variables
 }
