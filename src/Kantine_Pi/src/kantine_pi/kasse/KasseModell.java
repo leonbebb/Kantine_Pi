@@ -16,13 +16,22 @@
 package kantine_pi.kasse;
 
 /**
- *TODO Beschreibung
+ * TODO Beschreibung
+ *
  * @author Leon Bebbington
  */
-public class KasseModel {
+public class KasseModell {
 
+    private KasseGUI gui;
 
-    public void sendKeyPress(String key){
-        
+    KasseModell(String keys, String priesliste) {
+    }
+
+    public void sendKeyPress(String key) {
+        System.out.println(key + " pressed");
+    }
+
+    void setGUI(KasseGUI gui) {
+        this.gui = gui;
     }
 }

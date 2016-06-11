@@ -16,22 +16,12 @@ package kantine_pi;
  * 	permissions and limitations under the License. * 	
  */
 
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.FileSystem;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import kantine_pi.Produkt;
-import kantine_pi.ProduktListe;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Rule;
 
 /**
  *
