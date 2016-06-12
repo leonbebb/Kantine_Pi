@@ -74,17 +74,14 @@ public class KasseModell implements Runnable {
         leds = LEDKontroller.getInstance();
         commandQ = new ArrayBlockingQueue<String>(20);
         worker.start();
-
     }
 
     public void sendKeyPress(String key) {
-
         try {
             commandQ.put(key);
         } catch (InterruptedException ex) {
             Logger.getLogger(AufladeModell.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     void setGUI(KasseGUI gui) {
@@ -139,7 +136,9 @@ public class KasseModell implements Runnable {
             artikelselektor.reset();
             artikelliste.reset();
             if (gui != null) {
-                gui.setArtikelnummer(artikelselektor.getArtikelelnummerStr());
+                aktuelle_kartendaten = null;
+                this.gui.setGuthaben("--.-- €");
+                this.gui.setArtikelnummer(artikelselektor.getArtikelelnummerStr());
             }
         }
     }
@@ -169,7 +168,6 @@ public class KasseModell implements Runnable {
     private void handleF2(String key) {
         if (key.equalsIgnoreCase(vkF2)) {
             kartenLesenAufgabe();
-
         }
     }
 
@@ -178,7 +176,6 @@ public class KasseModell implements Runnable {
             artikelliste.artikelAnzahlErhöhen();
         } else if (key.equalsIgnoreCase(vkMinus)) {
             artikelliste.artikelAnzahlVerringern();
-
         }
     }
 
@@ -203,9 +200,7 @@ public class KasseModell implements Runnable {
             }
 
             System.out.println("handleZiffern :" + key);
-
         }
-
     }
 
     public void run() {
@@ -219,19 +214,7 @@ public class KasseModell implements Runnable {
                 handlePlusMinus(command);
                 handleF2(command);
                 handleF12(command);
-//                if (command.equalsIgnoreCase("LESEN")) {
-//                    this.kartenLesenAufgabe();
-//                } else if (command.equalsIgnoreCase("AUSZAHLEN")) {
-//                    this.auszahlenAufgabe();
-//                } else if (command.equalsIgnoreCase("ABBRECHEN")) {
-//                    this.vorgangabbrechenAufgabe();
-//                } else if (command.equalsIgnoreCase("LÖSCHEN")) {
-//                    this.löschenAufgabe();
-//                } else if (command.equalsIgnoreCase("SPEICHERN")) {
-//                    this.speichernAufgabe();
-//                } else if (command.equalsIgnoreCase("AUFLADEN")) {
-//                    this.aufladenAufgabe();
-//                }
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(AufladeModell.class.getName()).log(Level.SEVERE, null, ex);
             }
