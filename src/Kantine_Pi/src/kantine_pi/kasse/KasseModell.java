@@ -152,6 +152,7 @@ public class KasseModell implements Runnable {
                 if (p != null) {
                     Artikel artikel = new Artikel(p);
                     artikelliste.addArtikel(artikel);
+                    artikelselektor.reset();
                 } else {
                     //status meldung kein Artikel da  
                 }
@@ -214,6 +215,12 @@ public class KasseModell implements Runnable {
                 handlePlusMinus(command);
                 handleF2(command);
                 handleF12(command);
+                
+                if (this.gui != null){
+                    this.gui.setArtikleListe(artikelliste.getArtikels());
+                    this.gui.setEinkaufsSumme(
+                            formatter.format(artikelliste.getGesamtSumme()));
+                }
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(AufladeModell.class.getName()).log(Level.SEVERE, null, ex);

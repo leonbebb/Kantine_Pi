@@ -17,10 +17,11 @@ package kantine_pi.kasse;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 /**
  *
- * @author Leon Bebbington
+ * @author John Bebbington
  */
 class ArtikelListe {
 
@@ -53,14 +54,24 @@ class ArtikelListe {
     }
 
     void addArtikel(Artikel artikel) {
-        stapel.add(artikel);
-        
+        stapel.push(artikel);
     }
 
-    Artikel[] getArtikels(){
-        return  (Artikel[]) stapel.toArray();
+    Artikel[] getArtikels() {
+        Artikel[] al = new Artikel[stapel.size()];
+        stapel.toArray(al);
+        return al;
     }
-    
-    
+
+    double getGesamtSumme() {
+        double gs= 0.0;
+
+        Iterator<Artikel> itr = stapel.iterator();
+        while (itr.hasNext()) {
+            Artikel a = itr.next();
+            gs += a.getSumme();
+        }
+        return gs;
+    }
 
 }

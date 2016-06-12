@@ -15,8 +15,15 @@
  */
 package kantine_pi.kasse;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import static javax.swing.Action.ACTION_COMMAND_KEY;
 import javax.swing.ActionMap;
@@ -33,6 +40,8 @@ import kantine_pi.Katagorie;
  * @author Leon Bebbington
  */
 public class KasseGUI extends javax.swing.JPanel {
+
+    private NumberFormat formatter = new DecimalFormat("#0.00 €");
 
     private final KasseModell model;
 
@@ -55,7 +64,6 @@ public class KasseGUI extends javax.swing.JPanel {
         int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
         InputMap inputMap = getInputMap(condition);
 
-  
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), model.vkEscape);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), model.vkEnter);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), model.vkF2);
@@ -421,6 +429,33 @@ public class KasseGUI extends javax.swing.JPanel {
             public void run() {
                 //            jLabel_Guthaben.setText(name);
             }
+        });
+    }
+
+    public void setArtikleListe(final Artikel[] list) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                DefaultTableModel nm = new javax.swing.table.DefaultTableModel(
+                        new String[]{"#", "Produkt", "Preis (€)", "Anzahl", "Summe (€)"}, 0);
+
+                for (Artikel a : list) {
+                    if (a != null) {
+                        Object[] row = new Object[]{
+                            new Integer(a.getNummer()),
+                            a.getName(),
+                            formatter.format(a.getPreis()),
+                            new Integer(a.getAnzahl()),
+                            formatter.format(a.getSumme())};
+
+                        nm.addRow(row);
+                    }
+
+                }
+
+                jTable_ArtikelListe.setModel(nm);
+                jTable_ArtikelListe.updateUI();
+            }
+
         });
     }
 

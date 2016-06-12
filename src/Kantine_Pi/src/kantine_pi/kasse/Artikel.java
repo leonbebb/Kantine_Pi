@@ -23,40 +23,50 @@ import kantine_pi.Produkt;
  */
 public class Artikel extends Produkt {
 
-    private int Anzahl;
+    private int anzahl;
+    private double summe;
 
     public Artikel(int nummer, String katagorie, String name, double preis) {
         super(nummer, katagorie, name, preis);
-        this.Anzahl = 0;
+        this.anzahl = 1;
+        this.summe = 0;
     }
 
     public Artikel(Produkt produkt) {
         super(produkt.getNummer(), produkt.getKatagorie(),produkt.getName(),produkt.getPreis());
-        this.Anzahl = 0;
+        this.anzahl = 1;
+        this.summe = 0;
     }
-    
     
     /**
      * @return the Anzahl
      */
     public int getAnzahl() {
-        return Anzahl;
+        return anzahl;
     }
 
     public void anzahlErhöhen() {
-        this.Anzahl += 1;
+        this.setAnzahl(this.getAnzahl() + 1);
 
     }
 
     public void anzahlVerringern() {
-        this.Anzahl -= 1;
+        this.setAnzahl(this.getAnzahl() - 1);
     }
 
     /**
      * @param Anzahl the Anzahl to set
      */
     public void setAnzahl(int Anzahl) {
-        this.Anzahl = Anzahl;
+        this.anzahl = Anzahl;
+    }
+
+    /**
+     * @return the summe
+     */
+    public double getSumme() {
+        this.summe = this.anzahl * this.getPreis();
+        return this.summe;
     }
 
 }
