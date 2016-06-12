@@ -54,7 +54,7 @@
         <Component class="javax.swing.JLabel" name="jLabel_Guthaben">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="18" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="00,00 &#x20ac;"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -96,7 +96,7 @@
         <Component class="javax.swing.JLabel" name="jLabel_Einkaufssumme">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="18" style="1"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="00,00 &#x20ac;"/>
           </Properties>
@@ -180,88 +180,10 @@
             <Component class="javax.swing.JTable" name="jTable_Preislist">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="25">
-                    <Column editable="true" title="#" type="java.lang.Integer">
-                      <Data value="100"/>
-                      <Data value="101"/>
-                      <Data value="102"/>
-                      <Data value="103"/>
-                      <Data value="104"/>
-                      <Data value="201"/>
-                      <Data value="202"/>
-                      <Data value="203"/>
-                      <Data value="305"/>
-                      <Data value="306"/>
-                      <Data value="307"/>
-                      <Data value="308"/>
-                      <Data value="309"/>
-                      <Data value="400"/>
-                      <Data value="410"/>
-                      <Data value="411"/>
-                      <Data value="412"/>
-                      <Data value="500"/>
-                      <Data value="501"/>
-                      <Data value="502"/>
-                      <Data value="602"/>
-                      <Data value="603"/>
-                      <Data value="604"/>
-                      <Data value="605"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Produkt" type="java.lang.String">
-                      <Data value="bla"/>
-                      <Data value="ble"/>
-                      <Data value="bli"/>
-                      <Data value="a"/>
-                      <Data value="s"/>
-                      <Data value="b"/>
-                      <Data value="g"/>
-                      <Data value="d"/>
-                      <Data value="s"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Preis (&#x20ac;)" type="java.lang.Double">
-                      <Data value="1.02"/>
-                      <Data value="2.03"/>
-                      <Data value="2.0"/>
-                      <Data value="3.0"/>
-                      <Data value="4.0"/>
-                      <Data value="5.0"/>
-                      <Data value="6.0"/>
-                      <Data value="7.0"/>
-                      <Data value="8.0"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
+                  <Table columnCount="3" rowCount="0">
+                    <Column editable="true" title="#" type="java.lang.Integer"/>
+                    <Column editable="true" title="Produkt" type="java.lang.String"/>
+                    <Column editable="true" title="Preis (&#x20ac;)" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -307,37 +229,12 @@
             <Component class="javax.swing.JTable" name="jTable_ArtikelListe">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="#" type="java.lang.Integer">
-                      <Data value="101"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Produkt" type="java.lang.String">
-                      <Data value="ble"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Preis (&#x20ac;)" type="java.lang.Double">
-                      <Data value="2.03"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Anzahl" type="java.lang.Integer">
-                      <Data value="3"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Summe (&#x20ac;)" type="java.lang.Double">
-                      <Data value="6.09"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
+                  <Table columnCount="5" rowCount="0">
+                    <Column editable="true" title="#" type="java.lang.Integer"/>
+                    <Column editable="true" title="Produkt" type="java.lang.String"/>
+                    <Column editable="true" title="Preis (&#x20ac;)" type="java.lang.Double"/>
+                    <Column editable="true" title="Anzahl" type="java.lang.Integer"/>
+                    <Column editable="true" title="Summe (&#x20ac;)" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="fillsViewportHeight" type="boolean" value="true"/>

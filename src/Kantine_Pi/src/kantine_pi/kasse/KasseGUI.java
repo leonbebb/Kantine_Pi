@@ -100,7 +100,7 @@ public class KasseGUI extends javax.swing.JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), model.vk7);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), model.vk8);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), model.vk9);
-        
+
         actionMap.put(model.vkBackspace, new KeyAction(model.vkBackspace));
         actionMap.put(model.vkEscape, new KeyAction(model.vkEscape));
         actionMap.put(model.vkEnter, new KeyAction(model.vkEnter));
@@ -174,7 +174,7 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel1.setName(""); // NOI18N
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel_Guthaben.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_Guthaben.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel_Guthaben.setText("00,00 €");
         jLabel_Guthaben.setMinimumSize(new java.awt.Dimension(130, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -196,7 +196,7 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel2.setMinimumSize(new java.awt.Dimension(150, 120));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jLabel_Einkaufssumme.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_Einkaufssumme.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel_Einkaufssumme.setText("00,00 €");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -239,31 +239,7 @@ public class KasseGUI extends javax.swing.JPanel {
 
         jTable_Preislist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(100), "bla",  new Double(1.02)},
-                { new Integer(101), "ble",  new Double(2.03)},
-                { new Integer(102), "bli",  new Double(2.0)},
-                { new Integer(103), "a",  new Double(3.0)},
-                { new Integer(104), "s",  new Double(4.0)},
-                { new Integer(201), "b",  new Double(5.0)},
-                { new Integer(202), "g",  new Double(6.0)},
-                { new Integer(203), "d",  new Double(7.0)},
-                { new Integer(305), "s",  new Double(8.0)},
-                { new Integer(306), null, null},
-                { new Integer(307), null, null},
-                { new Integer(308), null, null},
-                { new Integer(309), null, null},
-                { new Integer(400), null, null},
-                { new Integer(410), null, null},
-                { new Integer(411), null, null},
-                { new Integer(412), null, null},
-                { new Integer(500), null, null},
-                { new Integer(501), null, null},
-                { new Integer(502), null, null},
-                { new Integer(602), null, null},
-                { new Integer(603), null, null},
-                { new Integer(604), null, null},
-                { new Integer(605), null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "#", "Produkt", "Preis (€)"
@@ -302,10 +278,7 @@ public class KasseGUI extends javax.swing.JPanel {
 
         jTable_ArtikelListe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(101), "ble",  new Double(2.03),  new Integer(3),  new Double(6.09)},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "#", "Produkt", "Preis (€)", "Anzahl", "Summe (€)"
@@ -430,18 +403,17 @@ public class KasseGUI extends javax.swing.JPanel {
         });
     }
 
-      public void setProdukteAusCatagorie(final ArrayList<Produkt> produkte) {
-          SwingUtilities.invokeLater(new Runnable() {
+    public void setProdukteAusCatagorie(final ArrayList<Produkt> produkte) {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                
+
                 String spalte1 = "Produkt";
-                if (produkte != null && produkte.size() >0)
-                {
-                       if (produkte.get(0).getKatagorie() != null)
-                    spalte1= produkte.get(0).getKatagorie();
-                      
-                 }
-                
+                if (produkte != null && produkte.size() > 0) {
+                    if (produkte.get(0).getKatagorie() != null) {
+                        spalte1 = produkte.get(0).getKatagorie();
+                    }
+                }
+
                 DefaultTableModel nm = new javax.swing.table.DefaultTableModel(
                         new String[]{"#", spalte1, "Preis (€)"}, 0);
 
@@ -451,31 +423,29 @@ public class KasseGUI extends javax.swing.JPanel {
                             produktformat.format(p.getNummer()),
                             p.getName(),
                             formatter.format(p.getPreis())
-                     };
+                        };
 
                         nm.addRow(row);
                     }
-
                 }
 
                 DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-               rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+                rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 
                 jTable_Preislist.setModel(nm);
                 jTable_Preislist.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 jTable_Preislist.getColumnModel().getColumn(0).setPreferredWidth(30);
-                jTable_Preislist.getColumnModel().getColumn(1).setPreferredWidth(230);
-                jTable_Preislist.getColumnModel().getColumn(2).setPreferredWidth(70);
+                jTable_Preislist.getColumnModel().getColumn(1).setPreferredWidth(360);
+                jTable_Preislist.getColumnModel().getColumn(2).setPreferredWidth(60);
                 jTable_Preislist.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
                 jTable_Preislist.updateUI();
             }
 
         });
     }
-    
-    
+
     public void setProduktCatagories(final ArrayList<Katagorie> kats) {
-          SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 DefaultTableModel nm = new javax.swing.table.DefaultTableModel(
                         new String[]{"#", "Produkt Katagorie"}, 0);
@@ -498,7 +468,7 @@ public class KasseGUI extends javax.swing.JPanel {
                 jTable_Preislist.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 jTable_Preislist.getColumnModel().getColumn(0).setPreferredWidth(30);
                 jTable_Preislist.getColumnModel().getColumn(1).setPreferredWidth(230);
-              
+
                 jTable_Preislist.updateUI();
             }
 
@@ -514,7 +484,7 @@ public class KasseGUI extends javax.swing.JPanel {
                 for (Artikel a : list) {
                     if (a != null) {
                         Object[] row = new Object[]{
-                            new Integer(a.getNummer()),
+                            produktformat.format(a.getNummer()),
                             a.getName(),
                             formatter.format(a.getPreis()),
                             new Integer(a.getAnzahl()),
@@ -531,7 +501,7 @@ public class KasseGUI extends javax.swing.JPanel {
                 jTable_ArtikelListe.setModel(nm);
                 jTable_ArtikelListe.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 jTable_ArtikelListe.getColumnModel().getColumn(0).setPreferredWidth(30);
-                jTable_ArtikelListe.getColumnModel().getColumn(1).setPreferredWidth(230);
+                jTable_ArtikelListe.getColumnModel().getColumn(1).setPreferredWidth(235);
                 jTable_ArtikelListe.getColumnModel().getColumn(2).setPreferredWidth(60);
                 jTable_ArtikelListe.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
                 jTable_ArtikelListe.getColumnModel().getColumn(3).setPreferredWidth(50);
@@ -545,100 +515,6 @@ public class KasseGUI extends javax.swing.JPanel {
         });
     }
 
-//      public void setProduktCatagories(final Katagorie[] name) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//                
-////                DefaultTableModel tm = new javax.swing.table.DefaultTableModel(
-////            new Object [][] {
-////                { new Integer(100), "bla",  new Double(1.02)},
-////                { new Integer(101), "ble",  new Double(2.03)},
-////                { new Integer(102), "bli",  new Double(2.0)},
-////                { new Integer(103), "a",  new Double(3.0)},
-////                { new Integer(104), "s",  new Double(4.0)},
-////                { new Integer(201), "b",  new Double(5.0)},
-////                { new Integer(202), "g",  new Double(6.0)},
-////                { new Integer(203), "d",  new Double(7.0)},
-////                { new Integer(305), "s",  new Double(8.0)},
-////                { new Integer(306), null, null},
-////                { new Integer(307), null, null},
-////                { new Integer(308), null, null},
-////                { new Integer(309), null, null},
-////                { new Integer(400), null, null},
-////                { new Integer(410), null, null},
-////                { new Integer(411), null, null},
-////                { new Integer(412), null, null},
-////                { new Integer(500), null, null},
-////                { new Integer(501), null, null},
-////                { new Integer(502), null, null},
-////                { new Integer(602), null, null},
-////                { new Integer(603), null, null},
-////                { new Integer(604), null, null},
-////                { new Integer(605), null, null},
-////                {null, null, null}
-////            },
-////            new String [] {
-////                "#", "Produkt", "Preis (€)"
-////            }
-////        ) {
-////            Class[] types = new Class [] {
-////                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
-////            };
-////
-////            public Class getColumnClass(int columnIndex) {
-////                return types [columnIndex];
-////            }
-////        });                
-////            }
-////        });
-////                
-////                
-//// jTable_Preislist.setModel(new javax.swing.table.DefaultTableModel(
-////            new Object [][] {
-////                { new Integer(100), "bla",  new Double(1.02)},
-////                { new Integer(101), "ble",  new Double(2.03)},
-////                { new Integer(102), "bli",  new Double(2.0)},
-////                { new Integer(103), "a",  new Double(3.0)},
-////                { new Integer(104), "s",  new Double(4.0)},
-////                { new Integer(201), "b",  new Double(5.0)},
-////                { new Integer(202), "g",  new Double(6.0)},
-////                { new Integer(203), "d",  new Double(7.0)},
-////                { new Integer(305), "s",  new Double(8.0)},
-////                { new Integer(306), null, null},
-////                { new Integer(307), null, null},
-////                { new Integer(308), null, null},
-////                { new Integer(309), null, null},
-////                { new Integer(400), null, null},
-////                { new Integer(410), null, null},
-////                { new Integer(411), null, null},
-////                { new Integer(412), null, null},
-////                { new Integer(500), null, null},
-////                { new Integer(501), null, null},
-////                { new Integer(502), null, null},
-////                { new Integer(602), null, null},
-////                { new Integer(603), null, null},
-////                { new Integer(604), null, null},
-////                { new Integer(605), null, null},
-////                {null, null, null}
-////            },
-////            new String [] {
-////                "#", "Produkt", "Preis (€)"
-////            }
-////        ) {
-////            Class[] types = new Class [] {
-////                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
-////            };
-////
-////            public Class getColumnClass(int columnIndex) {
-////                return types [columnIndex];
-////            }
-////        });                
-////            }
-////        });
-//    }
-//        }
-//      }
-//     
     /**
      * @param args the command line arguments
      */
