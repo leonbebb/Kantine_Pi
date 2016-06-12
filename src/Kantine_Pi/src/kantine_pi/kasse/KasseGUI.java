@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -29,11 +30,15 @@ import static javax.swing.Action.ACTION_COMMAND_KEY;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import kantine_pi.Katagorie;
+import kantine_pi.Produkt;
 
 /**
  *
@@ -42,6 +47,7 @@ import kantine_pi.Katagorie;
 public class KasseGUI extends javax.swing.JPanel {
 
     private NumberFormat formatter = new DecimalFormat("#0.00 €");
+    private NumberFormat produktformat = new DecimalFormat("000");
 
     private final KasseModell model;
 
@@ -64,16 +70,15 @@ public class KasseGUI extends javax.swing.JPanel {
         int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
         InputMap inputMap = getInputMap(condition);
 
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), model.vkBackspace);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), model.vkEscape);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), model.vkEnter);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), model.vkF2);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), model.vkF12);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, 0), model.vkMinus);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), model.vkPlus);
-
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), model.vkPlus);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), model.vkMinus);
-
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0), model.vk0);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), model.vk1);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), model.vk2);
@@ -95,7 +100,8 @@ public class KasseGUI extends javax.swing.JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), model.vk7);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), model.vk8);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), model.vk9);
-
+        
+        actionMap.put(model.vkBackspace, new KeyAction(model.vkBackspace));
         actionMap.put(model.vkEscape, new KeyAction(model.vkEscape));
         actionMap.put(model.vkEnter, new KeyAction(model.vkEnter));
         actionMap.put(model.vkF2, new KeyAction(model.vkF2));
@@ -424,11 +430,78 @@ public class KasseGUI extends javax.swing.JPanel {
         });
     }
 
-    public void setProduktCatagories(final Katagorie[] name) {
-        SwingUtilities.invokeLater(new Runnable() {
+      public void setProdukteAusCatagorie(final ArrayList<Produkt> produkte) {
+          SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                //            jLabel_Guthaben.setText(name);
+                
+                String spalte1 = "Produkt";
+                if (produkte != null && produkte.size() >0)
+                {
+                       if (produkte.get(0).getKatagorie() != null)
+                    spalte1= produkte.get(0).getKatagorie();
+                      
+                 }
+                
+                DefaultTableModel nm = new javax.swing.table.DefaultTableModel(
+                        new String[]{"#", spalte1, "Preis (€)"}, 0);
+
+                for (Produkt p : produkte) {
+                    if (p != null) {
+                        Object[] row = new Object[]{
+                            produktformat.format(p.getNummer()),
+                            p.getName(),
+                            formatter.format(p.getPreis())
+                     };
+
+                        nm.addRow(row);
+                    }
+
+                }
+
+                DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+               rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+
+                jTable_Preislist.setModel(nm);
+                jTable_Preislist.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTable_Preislist.getColumnModel().getColumn(0).setPreferredWidth(30);
+                jTable_Preislist.getColumnModel().getColumn(1).setPreferredWidth(230);
+                jTable_Preislist.getColumnModel().getColumn(2).setPreferredWidth(70);
+                jTable_Preislist.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+                jTable_Preislist.updateUI();
             }
+
+        });
+    }
+    
+    
+    public void setProduktCatagories(final ArrayList<Katagorie> kats) {
+          SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                DefaultTableModel nm = new javax.swing.table.DefaultTableModel(
+                        new String[]{"#", "Produkt Katagorie"}, 0);
+
+                for (Katagorie k : kats) {
+                    if (k != null) {
+                        Object[] row = new Object[]{
+                            new Integer(k.getNummer()),
+                            k.getName()};
+
+                        nm.addRow(row);
+                    }
+
+                }
+
+                DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+                rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+
+                jTable_Preislist.setModel(nm);
+                jTable_Preislist.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTable_Preislist.getColumnModel().getColumn(0).setPreferredWidth(30);
+                jTable_Preislist.getColumnModel().getColumn(1).setPreferredWidth(230);
+              
+                jTable_Preislist.updateUI();
+            }
+
         });
     }
 
@@ -452,7 +525,20 @@ public class KasseGUI extends javax.swing.JPanel {
 
                 }
 
+                DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+                rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+
                 jTable_ArtikelListe.setModel(nm);
+                jTable_ArtikelListe.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTable_ArtikelListe.getColumnModel().getColumn(0).setPreferredWidth(30);
+                jTable_ArtikelListe.getColumnModel().getColumn(1).setPreferredWidth(230);
+                jTable_ArtikelListe.getColumnModel().getColumn(2).setPreferredWidth(60);
+                jTable_ArtikelListe.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+                jTable_ArtikelListe.getColumnModel().getColumn(3).setPreferredWidth(50);
+                jTable_ArtikelListe.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+                jTable_ArtikelListe.getColumnModel().getColumn(4).setPreferredWidth(75);
+                jTable_ArtikelListe.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+
                 jTable_ArtikelListe.updateUI();
             }
 

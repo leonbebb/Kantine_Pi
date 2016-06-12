@@ -49,6 +49,7 @@ public class KasseModell implements Runnable {
     private final LEDKontroller leds;
     private final ProduktListe produktliste;
 
+    String vkBackspace = "VK_BACK_SPACE";    
     String vkEscape = "VK_ESCAPE";
     String vkEnter = "VK_ENTER";
     String vkF2 = "VK_F2";
@@ -138,11 +139,16 @@ public class KasseModell implements Runnable {
             if (gui != null) {
                 aktuelle_kartendaten = null;
                 this.gui.setGuthaben("--.-- €");
-                this.gui.setArtikelnummer(artikelselektor.getArtikelelnummerStr());
             }
         }
     }
 
+     private void handleBackSpace(String key) {
+        if (key.equalsIgnoreCase(vkBackspace)) {
+            artikelselektor.deleteZiffer();
+        }
+    }
+     
     private void handleEnter(String key) {
         if (key.equalsIgnoreCase(vkEnter)) {
             if (artikelselektor.hatArtikelnummer()) {
@@ -196,11 +202,6 @@ public class KasseModell implements Runnable {
             int ziff = Integer.parseInt(key);
             artikelselektor.enterZiffer(ziff);
 
-            if (gui != null) {
-                gui.setArtikelnummer(artikelselektor.getArtikelelnummerStr());
-            }
-
-            System.out.println("handleZiffern :" + key);
         }
     }
 
@@ -209,17 +210,30 @@ public class KasseModell implements Runnable {
             try {
                 String command = commandQ.take();
 
+                handleBackSpace(command);
                 handleZiffern(command);
                 handleEsc(command);
                 handleEnter(command);
                 handlePlusMinus(command);
                 handleF2(command);
                 handleF12(command);
-                
-                if (this.gui != null){
+
+                if (this.gui != null) {
+
+                    this.gui.setArtikelnummer(artikelselektor.getArtikelelnummerStr());
+                    
                     this.gui.setArtikleListe(artikelliste.getArtikels());
+                    
                     this.gui.setEinkaufsSumme(
                             formatter.format(artikelliste.getGesamtSumme()));
+                    
+                    // zeige KatagorieListe wenn kein Produkt selektiert ist.
+                    if (artikelselektor.getAnzahlVonNummern() == 0) {
+                        this.gui.setProduktCatagories(produktliste.getKatagorien());
+                    } else {
+                        this.gui.setProdukteAusCatagorie(produktliste.getProdukteAusKatagorie(artikelselektor.getKategorienummer()));                        
+                    }
+
                 }
 
             } catch (InterruptedException ex) {

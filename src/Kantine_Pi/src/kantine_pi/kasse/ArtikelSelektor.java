@@ -21,13 +21,13 @@ package kantine_pi.kasse;
  */
 public class ArtikelSelektor {
 
-    int anzahlVonNummern;
-    int nummer1;
-    int nummer2;
-    int nummer3;
-    int artikelnummer;
-    boolean hatArtikelnummer;
-    boolean isKategorie;
+    private int anzahlVonNummern;
+    private int nummer1;
+    private int nummer2;
+    private int nummer3;
+    private int artikelnummer;
+    private boolean hatArtikelnummer;
+    private boolean isKategorie;
 
     public ArtikelSelektor() {
         reset();
@@ -39,24 +39,24 @@ public class ArtikelSelektor {
         nummer3 = -1;
         anzahlVonNummern = 0;
         hatArtikelnummer = false;
-        isKategorie = false;
+        setIsKategorie(false);
     }
 
     public void enterZiffer(int i) {
 
-        if (anzahlVonNummern < 3) {
-            if (anzahlVonNummern == 0) {
+        if (getAnzahlVonNummern() < 3) {
+            if (getAnzahlVonNummern() == 0) {
                 nummer1 = i;
                 hatArtikelnummer = false;
-                isKategorie = true;
-            } else if (anzahlVonNummern == 1) {
+                setIsKategorie(true);
+            } else if (getAnzahlVonNummern() == 1) {
                 nummer2 = i;
                 hatArtikelnummer = false;
-                isKategorie = false;
-            } else if (anzahlVonNummern == 2) {
+                setIsKategorie(false);
+            } else if (getAnzahlVonNummern() == 2) {
                 nummer3 = i;
                 hatArtikelnummer = true;
-                isKategorie = false;
+                setIsKategorie(false);
             }
             anzahlVonNummern += 1;
         } else {
@@ -64,13 +64,13 @@ public class ArtikelSelektor {
             nummer1 = i;
             anzahlVonNummern = 1;
             hatArtikelnummer = false;
-            isKategorie = true;
+            setIsKategorie(true);
         }
 
     }
 
     public boolean isKategorie() {
-        return this.isKategorie;
+        return this.isIsKategorie();
     }
 
     public boolean hatArtikelnummer() {
@@ -92,6 +92,48 @@ public class ArtikelSelektor {
 
     public int getKategorienummer() {
         return this.nummer1;
+    }
+
+    /**
+     * @return the anzahlVonNummern
+     */
+    public int getAnzahlVonNummern() {
+        return anzahlVonNummern;
+    }
+
+    /**
+     * @return the isKategorie
+     */
+    public boolean isIsKategorie() {
+        return isKategorie;
+    }
+
+    /**
+     * @param isKategorie the isKategorie to set
+     */
+    public void setIsKategorie(boolean isKategorie) {
+        this.isKategorie = isKategorie;
+    }
+
+    void deleteZiffer() {
+         if (getAnzahlVonNummern() > 0) {
+            anzahlVonNummern -= 1;
+                         
+            if (getAnzahlVonNummern() == 0) {
+                nummer1 = -1;
+                hatArtikelnummer = false;
+                setIsKategorie(true);
+            } else if (getAnzahlVonNummern() == 1) {
+                nummer2 = -1;
+                hatArtikelnummer = false;
+                setIsKategorie(false);
+            } else if (getAnzahlVonNummern() == 2) {
+                nummer3 = -1;
+                hatArtikelnummer = true;
+                setIsKategorie(false);
+            }
+        } 
+
     }
 
 }
