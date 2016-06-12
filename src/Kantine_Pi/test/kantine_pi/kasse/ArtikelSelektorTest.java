@@ -27,24 +27,8 @@ import static org.junit.Assert.*;
  * @author Leon Bebbington
  */
 public class ArtikelSelektorTest {
-    
+
     public ArtikelSelektorTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -52,11 +36,11 @@ public class ArtikelSelektorTest {
      */
     @Test
     public void testReset() {
-        System.out.println("reset");
         ArtikelSelektor instance = new ArtikelSelektor();
+        instance.enterZiffer(1);
+        assertEquals("1__", instance.getArtikelelnummerStr());
         instance.reset();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("___", instance.getArtikelelnummerStr());
     }
 
     /**
@@ -64,13 +48,22 @@ public class ArtikelSelektorTest {
      */
     @Test
     public void testIsKategorie() {
-        System.out.println("isKategorie");
         ArtikelSelektor instance = new ArtikelSelektor();
-        boolean expResult = false;
         boolean result = instance.isKategorie();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(false, result);
+        instance.enterZiffer(5);
+        result = instance.isKategorie();
+        assertEquals(true, result);
+        instance.enterZiffer(4);
+        result = instance.isKategorie();
+        assertEquals(false, result);
+        instance.enterZiffer(3);
+        result = instance.isKategorie();
+        assertEquals(false, result);
+        instance.enterZiffer(2);
+        result = instance.isKategorie();
+        assertEquals(true, result);
+
     }
 
     /**
@@ -78,13 +71,27 @@ public class ArtikelSelektorTest {
      */
     @Test
     public void testHatArtikelnummer() {
-        System.out.println("hatArtikelnummer");
         ArtikelSelektor instance = new ArtikelSelektor();
-        boolean expResult = false;
         boolean result = instance.hatArtikelnummer();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(false, result);
+        
+        instance.enterZiffer(5);
+        result = instance.hatArtikelnummer();
+        assertEquals(false, result);
+        
+        instance.enterZiffer(4);
+        result = instance.hatArtikelnummer();
+        assertEquals(false, result);
+        
+        instance.enterZiffer(3);
+        result = instance.hatArtikelnummer();
+        assertEquals(true, result);
+        
+        instance.enterZiffer(2);
+        result = instance.hatArtikelnummer();
+        assertEquals(false, result);
+        
+    
     }
 
     /**
@@ -92,13 +99,14 @@ public class ArtikelSelektorTest {
      */
     @Test
     public void testGetArtikelelnummer() {
-        System.out.println("getArtikelelnummer");
         ArtikelSelektor instance = new ArtikelSelektor();
-        int expResult = 0;
+        instance.enterZiffer(1);
+        instance.enterZiffer(2);
+        instance.enterZiffer(3);
+
+        int expResult = 123;
         int result = instance.getArtikelelnummer();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -108,11 +116,12 @@ public class ArtikelSelektorTest {
     public void testGetKategorienummer() {
         System.out.println("getKategorienummer");
         ArtikelSelektor instance = new ArtikelSelektor();
-        int expResult = 0;
+        instance.enterZiffer(5);
+        instance.enterZiffer(4);
+        instance.enterZiffer(3);
+        int expResult = 5;
         int result = instance.getKategorienummer();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
 }
