@@ -35,7 +35,6 @@ class ArtikelListe {
             Artikel aktuellerArtikel = stapel.peek();
             aktuellerArtikel.anzahlErhöhen();
         }
-        System.out.println("+");
     }
 
     void artikelAnzahlVerringern() {
@@ -47,18 +46,21 @@ class ArtikelListe {
                 aktuellerArtikel.anzahlVerringern();
             }
         }
-        System.out.println("-");
     }
 
     void reset() {
         stapel.clear();
-        System.out.println("reset");
     }
 
     void addArtikel(Artikel artikel) {
         stapel.add(artikel);
-
-        System.out.println("added new Artikel :" + artikel.getNummer());
+        
     }
+
+    Artikel[] getArtikels(){
+        return  (Artikel[]) stapel.toArray();
+    }
+    
+    
 
 }
