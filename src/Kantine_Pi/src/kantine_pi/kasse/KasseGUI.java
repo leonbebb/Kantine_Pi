@@ -157,16 +157,23 @@ public class KasseGUI extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_ArtikelListe = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel_Esc = new javax.swing.JLabel();
+        jLabel_Kaufen = new javax.swing.JLabel();
+        jLabel_Plus = new javax.swing.JLabel();
+        jLabel_Minus = new javax.swing.JLabel();
+        jLabel_Ziffern = new javax.swing.JLabel();
+        jLabel_F12 = new javax.swing.JLabel();
+        jLabel_F2 = new javax.swing.JLabel();
+        jLabel_Löschen = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
+        jLabel_Status = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setToolTipText("");
         setMaximumSize(new java.awt.Dimension(1248, 1000));
         setMinimumSize(new java.awt.Dimension(1248, 1000));
+        setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(1248, 1000));
         setLayout(new java.awt.GridBagLayout());
 
@@ -315,42 +322,90 @@ public class KasseGUI extends javax.swing.JPanel {
         jPanel6.setName(""); // NOI18N
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
-        jLabel4.setText("Abrechen");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel6.add(jLabel4, gridBagConstraints);
-
-        jLabel5.setText("Kauf bestätigen");
+        jLabel_Esc.setText("Esc=Abbrechen");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel6.add(jLabel5, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_Esc, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("+");
+        jLabel_Kaufen.setText("Enter=Artikel in den Einkaufswagen");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_Kaufen, gridBagConstraints);
+
+        jLabel_Plus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_Plus.setText("+=Artikel +1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel6.add(jLabel6, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_Plus, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("-");
-        jLabel7.setToolTipText("");
+        jLabel_Minus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_Minus.setText("-=Artikel -1");
+        jLabel_Minus.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel6.add(jLabel7, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_Minus, gridBagConstraints);
+
+        jLabel_Ziffern.setText("Ziffern(0...9)=Artikelnummer");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_Ziffern, gridBagConstraints);
+
+        jLabel_F12.setText("F12=Einkauf abschließen");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_F12, gridBagConstraints);
+
+        jLabel_F2.setText("F2=Karte lesen");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_F2, gridBagConstraints);
+
+        jLabel_Löschen.setText("Löschtaste= Zahl Löschen");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 36;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        jPanel6.add(jLabel_Löschen, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -362,14 +417,14 @@ public class KasseGUI extends javax.swing.JPanel {
 
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kantine_pi/kasse/Logo.png"))); // NOI18N
-        jLabel1.setToolTipText("");
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kantine_pi/kasse/Logo.png"))); // NOI18N
+        Logo.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel7.add(jLabel1, gridBagConstraints);
+        jPanel7.add(Logo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -377,6 +432,17 @@ public class KasseGUI extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel7, gridBagConstraints);
+
+        jLabel_Status.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel_Status.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        add(jLabel_Status, gridBagConstraints);
+
+        getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
 
     public void setGuthaben(final String name) {
@@ -560,14 +626,19 @@ public class KasseGUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel Logo;
     private javax.swing.JLabel jLabel_Artikelnummer;
     private javax.swing.JLabel jLabel_Einkaufssumme;
+    private javax.swing.JLabel jLabel_Esc;
+    private javax.swing.JLabel jLabel_F12;
+    private javax.swing.JLabel jLabel_F2;
     private javax.swing.JLabel jLabel_Guthaben;
+    private javax.swing.JLabel jLabel_Kaufen;
+    private javax.swing.JLabel jLabel_Löschen;
+    private javax.swing.JLabel jLabel_Minus;
+    private javax.swing.JLabel jLabel_Plus;
+    private javax.swing.JLabel jLabel_Status;
+    private javax.swing.JLabel jLabel_Ziffern;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
