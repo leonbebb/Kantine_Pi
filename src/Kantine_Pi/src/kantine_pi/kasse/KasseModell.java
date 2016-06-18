@@ -49,7 +49,7 @@ public class KasseModell implements Runnable {
     private final LEDKontroller leds;
     private final ProduktListe produktliste;
 
-    String vkBackspace = "VK_BACK_SPACE";    
+    String vkBackspace = "VK_BACK_SPACE";
     String vkEscape = "VK_ESCAPE";
     String vkEnter = "VK_ENTER";
     String vkF2 = "VK_F2";
@@ -92,7 +92,7 @@ public class KasseModell implements Runnable {
     private boolean kartenLesenAufgabe() {
 
         boolean okay = false;
-        
+
         leds.setGelesen_ok(true);
         leds.setLese_error(false);
         leds.leser_blinker.start();
@@ -101,7 +101,7 @@ public class KasseModell implements Runnable {
 
         leds.leser_blinker.stop();
 
-             this.gui.setStatus(karten_vorgang.getStatus());
+        this.gui.setStatus(karten_vorgang.getStatus());
         if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_LESEN_OK)) {
 
             leds.setGelesen_ok(true);
@@ -113,7 +113,7 @@ public class KasseModell implements Runnable {
                 this.gui.setGuthaben(formatter.format(aktuelle_kartendaten.getGuthaben()));
             }
             okay = true;
-            
+
         } else if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_SCAN_FEHLER)) {
             leds.setGelesen_ok(false);
             leds.setLese_error(true);
@@ -131,13 +131,16 @@ public class KasseModell implements Runnable {
             }
 
         }
-        
+
         return okay;
 
     }
 
     private void handleEsc(String key) {
+
         if (key.equalsIgnoreCase(vkEscape)) {
+            leds.setGelesen_ok(false);
+            leds.setLese_error(false);
             artikelselektor.reset();
             artikelliste.reset();
             if (gui != null) {
@@ -148,12 +151,12 @@ public class KasseModell implements Runnable {
         }
     }
 
-     private void handleBackSpace(String key) {
+    private void handleBackSpace(String key) {
         if (key.equalsIgnoreCase(vkBackspace)) {
             artikelselektor.deleteZiffer();
         }
     }
-     
+
     private void handleEnter(String key) {
         if (key.equalsIgnoreCase(vkEnter)) {
             if (artikelselektor.hatArtikelnummer()) {
@@ -165,7 +168,7 @@ public class KasseModell implements Runnable {
                     artikelliste.addArtikel(artikel);
                     artikelselektor.reset();
                 } else {
-                  this.gui.setStatus("UNBEKANNTER ARTIKEL");
+                    this.gui.setStatus("UNBEKANNTER ARTIKEL");
                 }
             }
         }
@@ -215,7 +218,9 @@ public class KasseModell implements Runnable {
             try {
                 String command = commandQ.take();
 
-                 if (this.gui != null) this.gui.setStatus("");
+                if (this.gui != null) {
+                    this.gui.setStatus("");
+                }
 
                 handleBackSpace(command);
                 handleZiffern(command);
@@ -228,17 +233,17 @@ public class KasseModell implements Runnable {
                 if (this.gui != null) {
 
                     this.gui.setArtikelnummer(artikelselektor.getArtikelelnummerStr());
-                    
+
                     this.gui.setArtikleListe(artikelliste.getArtikels());
-                    
+
                     this.gui.setEinkaufsSumme(
                             formatter.format(artikelliste.getGesamtSumme()));
-                    
+
                     // zeige KatagorieListe wenn kein Produkt selektiert ist.
                     if (artikelselektor.getAnzahlVonNummern() == 0) {
                         this.gui.setProduktCatagories(produktliste.getKatagorien());
                     } else {
-                        this.gui.setProdukteAusCatagorie(produktliste.getProdukteAusKatagorie(artikelselektor.getKategorienummer()));                        
+                        this.gui.setProdukteAusCatagorie(produktliste.getProdukteAusKatagorie(artikelselektor.getKategorienummer()));
                     }
 
                 }
@@ -252,39 +257,42 @@ public class KasseModell implements Runnable {
     }
 
     private void einkaufenAufgabe() {
-        
+
         kartenLesenAufgabe();
 
-        if (aktuelle_kartendaten != null && artikelliste.getGesamtSumme()>0.0){
+        if (aktuelle_kartendaten != null && artikelliste.getGesamtSumme() > 0.0) {
 
             double alte_guthaben = aktuelle_kartendaten.getGuthaben();
             double neu_guthaben = aktuelle_kartendaten.getGuthaben();
-            
-            
-            if (artikelliste.getGesamtSumme() > aktuelle_kartendaten.getGuthaben()){
-                
-                if (this.gui != null) this.gui.setStatus("UNGENÜGEND GUTHABEN");
-                
+
+            if (artikelliste.getGesamtSumme() > aktuelle_kartendaten.getGuthaben()) {
+
+                if (this.gui != null) {
+                    this.gui.setStatus("UNGENÜGEND GUTHABEN");
+                }
+
             } else {
-                    
-               neu_guthaben = aktuelle_kartendaten.getGuthaben()-artikelliste.getGesamtSumme();
-               aktuelle_kartendaten.setGuthaben(neu_guthaben);
-                
+
+                neu_guthaben = aktuelle_kartendaten.getGuthaben() - artikelliste.getGesamtSumme();
+                aktuelle_kartendaten.setGuthaben(neu_guthaben);
+
                 kartenSchreibenAufgabe();
-                
+
                 kartenLesenAufgabe();
-     
-                if (kartenLesenAufgabe()==true && aktuelle_kartendaten.getGuthaben() == neu_guthaben){
-                   if (this.gui != null) this.gui.setStatus("ABGESCHLOSSEN");               
-                   artikelselektor.reset();
-                   artikelliste.reset();
-                  
-                } 
-             
+
+                if (kartenLesenAufgabe() == true && aktuelle_kartendaten.getGuthaben() == neu_guthaben) {
+                    if (this.gui != null) {
+                        this.gui.setStatus("ABGESCHLOSSEN");
+                    }
+                    artikelselektor.reset();
+                    artikelliste.reset();
+
+                }
+
             }
-               
-        } 
-        
+
+        }
+
     }
 
     private void kartenSchreibenAufgabe() {
@@ -313,7 +321,4 @@ public class KasseModell implements Runnable {
         }
     }
 
-        
-        
-    
 }
