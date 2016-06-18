@@ -89,18 +89,19 @@ public class KasseModell implements Runnable {
         this.gui = gui;
     }
 
-    private void kartenLesenAufgabe() {
+    private boolean kartenLesenAufgabe() {
 
+        boolean okay = false;
+        
         leds.setGelesen_ok(true);
         leds.setLese_error(false);
-        System.out.println("karte lesen");
         leds.leser_blinker.start();
 
         karten_vorgang = nfc.readEncryptedCard();
 
         leds.leser_blinker.stop();
 
-        //     this.gui.setStatus(karten_vorgang.getStatus());
+             this.gui.setStatus(karten_vorgang.getStatus());
         if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_LESEN_OK)) {
 
             leds.setGelesen_ok(true);
@@ -111,7 +112,8 @@ public class KasseModell implements Runnable {
             if (this.gui != null) {
                 this.gui.setGuthaben(formatter.format(aktuelle_kartendaten.getGuthaben()));
             }
-
+            okay = true;
+            
         } else if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_SCAN_FEHLER)) {
             leds.setGelesen_ok(false);
             leds.setLese_error(true);
@@ -129,6 +131,8 @@ public class KasseModell implements Runnable {
             }
 
         }
+        
+        return okay;
 
     }
 
@@ -139,6 +143,7 @@ public class KasseModell implements Runnable {
             if (gui != null) {
                 aktuelle_kartendaten = null;
                 this.gui.setGuthaben("--.-- €");
+                this.gui.setStatus("TRANSAKTION ABGEBROCHEN");
             }
         }
     }
@@ -160,7 +165,7 @@ public class KasseModell implements Runnable {
                     artikelliste.addArtikel(artikel);
                     artikelselektor.reset();
                 } else {
-                    //status meldung kein Artikel da  
+                  this.gui.setStatus("UNBEKANNTER ARTIKEL");
                 }
             }
         }
@@ -168,7 +173,7 @@ public class KasseModell implements Runnable {
 
     private void handleF12(String key) {
         if (key.equalsIgnoreCase(vkF12)) {
-
+            einkaufenAufgabe();
         }
     }
 
@@ -210,6 +215,8 @@ public class KasseModell implements Runnable {
             try {
                 String command = commandQ.take();
 
+                 if (this.gui != null) this.gui.setStatus("");
+
                 handleBackSpace(command);
                 handleZiffern(command);
                 handleEsc(command);
@@ -243,4 +250,70 @@ public class KasseModell implements Runnable {
         }
 
     }
+
+    private void einkaufenAufgabe() {
+        
+        kartenLesenAufgabe();
+
+        if (aktuelle_kartendaten != null && artikelliste.getGesamtSumme()>0.0){
+
+            double alte_guthaben = aktuelle_kartendaten.getGuthaben();
+            double neu_guthaben = aktuelle_kartendaten.getGuthaben();
+            
+            
+            if (artikelliste.getGesamtSumme() > aktuelle_kartendaten.getGuthaben()){
+                
+                if (this.gui != null) this.gui.setStatus("UNGENÜGEND GUTHABEN");
+                
+            } else {
+                    
+               neu_guthaben = aktuelle_kartendaten.getGuthaben()-artikelliste.getGesamtSumme();
+               aktuelle_kartendaten.setGuthaben(neu_guthaben);
+                
+                kartenSchreibenAufgabe();
+                
+                kartenLesenAufgabe();
+     
+                if (kartenLesenAufgabe()==true && aktuelle_kartendaten.getGuthaben() == neu_guthaben){
+                   if (this.gui != null) this.gui.setStatus("ABGESCHLOSSEN");               
+                   artikelselektor.reset();
+                   artikelliste.reset();
+                  
+                } 
+             
+            }
+               
+        } 
+        
+    }
+
+    private void kartenSchreibenAufgabe() {
+
+        leds.schreiber_blinker.start();
+        KartenDaten neu_kartendaten = nfc.writeEncryptedCard(aktuelle_kartendaten);
+        leds.schreiber_blinker.stop();
+        leds.leser_blinker.start();
+        karten_vorgang = nfc.readEncryptedCard();
+        leds.leser_blinker.stop();
+
+        this.gui.setStatus(karten_vorgang.getStatus());
+
+        if (karten_vorgang.getStatus().equalsIgnoreCase(NFCKontroller.STATUS_LESEN_OK)) {
+            leds.setGelesen_ok(true);
+            leds.setLese_error(false);
+
+            aktuelle_kartendaten = karten_vorgang.getKd();
+
+            this.gui.setGuthaben(formatter.format(aktuelle_kartendaten.getGuthaben()));
+            this.gui.setEinkaufsSumme("--.-- €");
+
+        } else {
+            leds.setGelesen_ok(false);
+            leds.setLese_error(true);
+        }
+    }
+
+        
+        
+    
 }

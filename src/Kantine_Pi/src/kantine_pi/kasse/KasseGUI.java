@@ -453,6 +453,13 @@ public class KasseGUI extends javax.swing.JPanel {
         });
     }
 
+      public void setStatus(final String name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jLabel_Status.setText(name);
+            }
+        });
+    }
     public void setArtikelnummer(final String name) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
