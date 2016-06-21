@@ -239,9 +239,11 @@ public class KasseGUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel3, gridBagConstraints);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Preislist Manager", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Preisliste Manager", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel4.setToolTipText("");
         jPanel4.setMaximumSize(new java.awt.Dimension(250, 168));
         jPanel4.setMinimumSize(new java.awt.Dimension(250, 168));
+        jPanel4.setName(""); // NOI18N
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         jTable_Preislist.setModel(new javax.swing.table.DefaultTableModel(
@@ -277,6 +279,8 @@ public class KasseGUI extends javax.swing.JPanel {
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jPanel4, gridBagConstraints);
+        jPanel4.getAccessibleContext().setAccessibleName("Preisliste Manager");
+        jPanel4.getAccessibleContext().setAccessibleDescription("");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Artikel Liste", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel5.setMaximumSize(new java.awt.Dimension(285, 168));
